@@ -23,7 +23,6 @@ public class VariableNamesTheme {
         // 5. количество десятков
         int countTens = 150_000 / 10;
         System.out.println("5. Количество десятков: " + countTens);
-        
 
         // 6. вес собаки
         short dogWeight = 113;
@@ -75,7 +74,6 @@ public class VariableNamesTheme {
         byte gameScoreTeam2 = 17;
         System.out.println("17. Счет (в игре) " + gameScoreTeam1 + ":" +gameScoreTeam2);
 
-
         //18. максимальная длина (строки)
         short maxLengthString = 256;
         System.out.println("18. Максимальная длина (строки): " + maxLengthString + " символов");
@@ -88,7 +86,6 @@ public class VariableNamesTheme {
          BigDecimal priceСoffeeTakeaway = new BigDecimal("175.50");
         System.out.println("20. Стоимость кофе на вынос: " + priceСoffeeTakeaway + " рублей");
 
-
         //21. дата начала (чего-либо)
         String beginDate = "27 декабря 2023 года";
         System.out.println("21. Дата начала обучения: " + beginDate);
@@ -96,7 +93,6 @@ public class VariableNamesTheme {
         //22. окончание диапазона
         String endRange = "B115";
         System.out.println("22. Окончание диапазона: " + endRange);
-
 
         //23. полное имя работника месяца
         String fullnameEmployeeMonth = "Иванова Мария Ивановна";
@@ -129,16 +125,16 @@ public class VariableNamesTheme {
         // II блок - Переменные boolean
         System.out.println("\nII. БЛОК - 'Переменные boolean'");
         //2.1. сотни равны?
-        boolean areHundredsEqual = false;
-        System.out.println("2.1. Сотни равны?: " + areHundredsEqual);
+        boolean  isHundredsEqual = false;
+        System.out.println("2.1. Сотни равны?: " + isHundredsEqual);
 
         //2.2. компьютер включен?
         boolean isComputerOn = true;
         System.out.println("2.2. Компьютер включен?: " + isComputerOn);
 
         //2.3. есть равные цифры?
-        boolean areDigitsEqual  = true;
-        System.out.println("2.3. Есть равные цифры?: " + areDigitsEqual);
+        boolean hasDigitsEqual  = true;
+        System.out.println("2.3. Есть равные цифры?: " + hasDigitsEqual);
 
         //2.4. (что-либо) создано?
         boolean isCreated = true;
@@ -161,8 +157,8 @@ public class VariableNamesTheme {
         System.out.println("2.8. Электронная почта действительная?: " + isEmailValid);
 
         //2.9. имеются уникальные строки?
-        boolean areUniqueStrings = false;
-        System.out.println("2.9. Имеются уникальные строки?: " + areUniqueStrings);
+        boolean hasUniqueStrings = false;
+        System.out.println("2.9. Имеются уникальные строки?: " + hasUniqueStrings);
 
         // 3. Аббревиатуры
         System.out.println("\nIII. БЛОК - 'Аббревиатуры'");
@@ -170,8 +166,8 @@ public class VariableNamesTheme {
         // 3.1. старый universally unique identifier
         // UUID представляет собой 16-байтный (128-битный) номер
         // пример:'550e8400-e29b-41d4-a716-446655440000'
-        String oldUUIDs = "550e8400-e29b-41d4-a716-446655440000";
-        System.out.println("3.1. Старый universally unique identifier : " + oldUUIDs);
+        String oldUuid = "550e8400-e29b-41d4-a716-446655440000";
+        System.out.println("3.1. Старый universally unique identifier : " + oldUuid);
 
         // 3.2. производитель оперативной памяти
         String manufacturerRam = "Micron";
@@ -189,13 +185,13 @@ public class VariableNamesTheme {
         // 3.5. сокращенный uniform resource locator
         //https://www.usatoday.com/story/travel/2022/02/10/amtrak-deal-valentines-offer-sale/6741296001/ to 
         //https://bit.ly/3Bg19uM
-        String shortenedUrl = "https://bit.ly/3Bg19uM";
-        System.out.println("3.5. Cокращенный uniform resource locator : " + shortenedUrl);
+        String shortUrl = "https://bit.ly/3Bg19uM";
+        System.out.println("3.5. Cокращенный uniform resource locator : " + shortUrl);
 
         // 3.6. новый идентификатор клиента
         //Идентификатор клиента (CUID) — это уникальный идентификатор пользователя
-        String Cuid = "2BM-9617641160-961701000-201808150446459104749";
-        System.out.println("3.6. Новый идентификатор клиента : " + Cuid);
+        String newClientId = "2BM-9617641160-961701000-201808150446459104749";
+        System.out.println("3.6. Новый идентификатор клиента : " + newClientId);
 
         // 3.7. кодировка american standard code for information interchange
         // код символа в кодировке ASCII
