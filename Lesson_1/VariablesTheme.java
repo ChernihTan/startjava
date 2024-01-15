@@ -66,30 +66,26 @@ public class VariablesTheme {
 
         // 4. Вывод min и max значений целых числовых типов
         System.out.println("\n4. Вывод min и max значений целых числовых типов");
-        System.out.println("\t\tчисло\t\t\t инкремент\t\t декремент");
+        System.out.println("\t\tмаксимальное число\t после инкремента\t после декремента");
         // max byte
         byte maxByte = 127;
-        System.out.print("max byte: \t" + maxByte + "\t\t\t " + ++maxByte + "\t\t\t ");
-        maxByte--;
-        System.out.println("" + --maxByte);
+        System.out.println("тип byte: \t" + maxByte + "\t\t\t " + ++maxByte + 
+                "\t\t\t " + --maxByte);
 
         // max short
         short maxShort = 32_767;
-        System.out.print("max short: \t" + maxShort + "\t\t\t " + ++maxShort + "\t\t\t ");
-        maxShort--;
-        System.out.println("" + --maxShort);
+        System.out.println("тип short: \t" + maxShort + "\t\t\t " + ++maxShort + 
+                "\t\t\t " + --maxShort);
 
         // max int
         int maxInt = 2_147_483_647;
-        System.out.print("max int: \t" + maxInt + "\t\t " + ++maxInt + "\t\t ");
-        maxInt--;
-        System.out.println("" + --maxInt);
+        System.out.println("тип int: \t" + maxInt + "\t\t " + ++maxInt + 
+                "\t\t " + --maxInt);
 
         // max long
         long maxLong = 9_223_372_036_854_775_807l;
-        System.out.print("max long: \t" + maxLong + "\t " + ++maxLong + "\t ");
-        maxLong--;
-        System.out.println("" + --maxLong);
+        System.out.println("тип long: \t" + maxLong + "\t " + ++maxLong + 
+                "\t " + --maxLong);
 
         //5. Перестановка значений переменных 
         System.out.println("\n5. Перестановка значений переменных");
@@ -168,7 +164,7 @@ public class VariablesTheme {
         System.out.println(" " + slash + "      " + backSlash); 
         System.out.println("" + slash + underscore + underscore + 
                 underscore + underscore + slash + backSlash + underscore +
-                underscore + backSlash + " "); 
+                underscore + backSlash); 
 
         // 8. Вывод количества сотен, десятков и единиц числа
         System.out.println("\n8. Вывод количества сотен, десятков и единиц числа");
