@@ -1,42 +1,61 @@
-public class  VariablesTheme {
+public class VariablesTheme {
     public static void main(String[] args) {
         // 1. Вывод характеристик компьютера
         System.out.println("\n1. Вывод характеристик компьютера:"); 
+
         // Тактовая частота центрального процессора (CPU)
         float clockSpeedCpu = 2.4f;
         System.out.println("Тактовая частота центрального процессора:\t\t" + clockSpeedCpu + "GHz");
+
         // Количество ядер центрального процессора 
-        short numberCoresCpu = 6;
-        System.out.println("Количество ядер центрального процессора:\t\t" + numberCoresCpu + 
-                " ядер");
+        byte numberCoresCpu = 6;
+        System.out.println("Количество ядер центрального процессора:\t\t" + 
+                numberCoresCpu + " ядер");
+
         // Количество логических процессоров центрального процессора
-        short numberLogicalProcessors = 12;
-        System.out.println("Количество логических процессоров ЦП:\t\t\t" + numberLogicalProcessors);
+        short numberLogicalCpus = 12;
+        System.out.println("Количество логических процессоров ЦП:\t\t\t" + numberLogicalCpus);
+
         // Объем оперативной памяти 
         long capacityRam = 2 * (8589934592l / 1073741824l);
         System.out.println("Объем оперативной памяти:\t\t\t\t" + capacityRam + "Гб");
+
         //Объем памяти видеокарты
-        int graphicsCardMemorySize = 6144;
-        System.out.println("Объем памяти видеокарты:\t\t\t\t" + graphicsCardMemorySize + "Мб");
+        int gRam = 6144;
+        System.out.println("Объем памяти видеокарты:\t\t\t\t" + gRam + "Мб");
+
         // Размер свободного пространства на жестком диске 
-        float freeSpaceLogicalDisk =  671.94f;
+        double freeSpaceLogicalDisk =  671.94d;
         System.out.println("Размер свободного пространства на жестком диске:\t" + 
                 freeSpaceLogicalDisk + "Гб");
+
         // Версия операционной системы
         String versionOs = "Windows 10 Домашняя версия 22H2 64-bit";
         System.out.println("Версия операционной системы:\t\t\t\t" + versionOs);
+
+        // 64-разрядный процессор?
+        boolean is64Bit = true;
+        System.out.println("64-разрядный процессор? :\t\t\t\t" + is64Bit);
+
+        //Имя главного логического диска обозначается латинской буквой
+        char  nameLogicDisc = 'C';
+        System.out.println("Имя главного логического диска " +
+                "обозначается: " + "\t\t" + nameLogicDisc + ":");
 
         // 2. Расчет стоимости товара со скидкой
         System.out.println("\n2. Расчет стоимости товара со скидкой:"); 
         float penPrice = 100f;
         float bookPrice = 200f;
-        float discounPercent = 11f;
+        // процент скидки
+        float percentDiscount = 11f;
         float totalCostWithoutDiscount = penPrice + bookPrice;
-        float totalDiscountedPrice = totalCostWithoutDiscount * (100 - discounPercent) / 100f;
-        float amountDiscount = totalCostWithoutDiscount - totalDiscountedPrice;
+        // сумма скидки
+        float sumDiscount = totalCostWithoutDiscount * percentDiscount / 100f;
+        float totalCostWithDiscount = totalCostWithoutDiscount - sumDiscount;
+
         System.out.println("Общая стоимость товаров без скидки:\t" + totalCostWithoutDiscount);
-        System.out.println("Сумма скидки:\t\t\t\t" + amountDiscount);
-        System.out.println("Общая стоимость товаров со скидкой:\t" + totalDiscountedPrice);
+        System.out.println("Сумма скидки:\t\t\t\t" + sumDiscount);
+        System.out.println("Общая стоимость товаров со скидкой:\t" + totalCostWithDiscount);
 
         // 3. Вывод слова JAVA
         System.out.println("\n3. Вывод слова JAVA\n"); 
@@ -46,51 +65,31 @@ public class  VariablesTheme {
         System.out.println(" JJ  a     a  V  a     a");
 
         // 4. Вывод min и max значений целых числовых типов
-        System.out.println("\n3. 4. Вывод min и max значений целых числовых типов");
+        System.out.println("\n4. Вывод min и max значений целых числовых типов");
         System.out.println("\t\tчисло\t\t\t инкремент\t\t декремент");
         // max byte
-        byte typeByte = 127;
-        System.out.print("max byte: \t" + typeByte + "\t\t\t " + ++typeByte + "\t\t\t ");
-        typeByte--;
-        System.out.println("" + --typeByte);
-        // min byte
-        typeByte = -128;
-        System.out.print("min byte: \t" + typeByte + "\t\t\t " + ++typeByte + "\t\t\t ");
-        typeByte--;
-        System.out.println("" + --typeByte);
+        byte maxByte = 127;
+        System.out.print("max byte: \t" + maxByte + "\t\t\t " + ++maxByte + "\t\t\t ");
+        maxByte--;
+        System.out.println("" + --maxByte);
 
         // max short
-        short typeShort = 32_767;
-        System.out.print("max short: \t" + typeShort + "\t\t\t " + ++typeShort + "\t\t\t ");
-        typeShort--;
-        System.out.println("" + --typeShort);
-        // min short
-        typeShort = -32_768;
-        System.out.print("min short: \t" + typeShort + "\t\t\t " + ++typeShort + "\t\t\t ");
-        typeShort--;
-        System.out.println("" + --typeShort);
+        short maxShort = 32_767;
+        System.out.print("max short: \t" + maxShort + "\t\t\t " + ++maxShort + "\t\t\t ");
+        maxShort--;
+        System.out.println("" + --maxShort);
 
         // max int
-        int typeInt = 2_147_483_647;
-        System.out.print("max int: \t" + typeInt + "\t\t " + ++typeInt + "\t\t ");
-        typeInt--;
-        System.out.println("" + --typeInt);
-        // min int
-        typeInt = -2_147_483_648;
-        System.out.print("min int: \t" + typeInt + "\t\t " + ++typeInt + "\t\t ");
-        typeInt--;
-        System.out.println("" + --typeInt);
+        int maxInt = 2_147_483_647;
+        System.out.print("max int: \t" + maxInt + "\t\t " + ++maxInt + "\t\t ");
+        maxInt--;
+        System.out.println("" + --maxInt);
 
         // max long
-        long typeLong = 9_223_372_036_854_775_807l;
-        System.out.print("max long: \t" + typeLong + "\t " + ++typeLong + "\t ");
-        typeLong--;
-        System.out.println("" + --typeLong);
-        // min long
-        typeLong = -9_223_372_036_854_775_808l;
-        System.out.print("min long: \t" + typeLong + "\t " + ++typeLong + "\t ");
-        typeLong--;
-        System.out.println("" + --typeLong);
+        long maxLong = 9_223_372_036_854_775_807l;
+        System.out.print("max long: \t" + maxLong + "\t " + ++maxLong + "\t ");
+        maxLong--;
+        System.out.println("" + --maxLong);
 
         //5. Перестановка значений переменных 
         System.out.println("\n5. Перестановка значений переменных");
@@ -142,70 +141,55 @@ public class  VariablesTheme {
 
         //6.  Вывод символов и их кодов
         System.out.println("\n6.  Вывод символов и их кодов");        
-        char Dollar = '$';
-        char Asterisk = '*';
-        char AtSign = '@';
-        char VerticalBar = '|';
-        char Tilde = '~';
+        char dollar = '$';
+        char asterisk = '*';
+        char atSign = '@';
+        char verticalBar = '|';
+        char tilde = '~';
 
         System.out.println("код символа\t" + "cимвол"); 
-        int numberInt = (int)Dollar;
-        System.out.println("\t" + numberInt + "\t" + Dollar); 
-        
-        numberInt = (int)Asterisk;
-        System.out.println("\t" + numberInt + "\t" + Asterisk); 
-
-        numberInt = (int)AtSign;
-        System.out.println("\t" + numberInt + "\t" + AtSign);
-
-        numberInt = (int)VerticalBar;
-        System.out.println("\t" + numberInt + "\t" + VerticalBar); 
-
-        numberInt = (int)Tilde;
-        System.out.println("\t" + numberInt + "\t" + Tilde); 
+        System.out.println("\t" + (int) dollar + "\t" + dollar); 
+        System.out.println("\t" + (int) asterisk + "\t" + asterisk); 
+        System.out.println("\t" + (int) atSign + "\t" + atSign);
+        System.out.println("\t" + (int) verticalBar + "\t" + verticalBar); 
+        System.out.println("\t" + (int) tilde + "\t" + tilde); 
 
         // 7. Вывод в консоль ASCII-арт Дюка
         System.out.println("\n7. Вывод в консоль ASCII-арт Дюка"); 
-        char Slash = '/';
-        char BackSlash = '\\';
-        char LeftParenthesis = '(';
-        char RightParenthesis = ')';
-        char Underscore = '_';
-        System.out.println("    " + Slash + BackSlash); 
-        System.out.println("   " + Slash + "  " + BackSlash); 
-        System.out.println("  " + Slash + Underscore + LeftParenthesis + " " + 
-                RightParenthesis + BackSlash); 
-        System.out.println(" " + Slash + "      " + BackSlash); 
-        System.out.println("" + Slash + Underscore + Underscore + 
-                Underscore + Underscore + Slash + BackSlash + Underscore +
-                Underscore + BackSlash + " "); 
+        char slash = '/';
+        char backSlash = '\\';
+        char leftParenthesis = '(';
+        char rightParenthesis = ')';
+        char underscore = '_';
+        System.out.println("    " + slash + backSlash); 
+        System.out.println("   " + slash + "  " + backSlash); 
+        System.out.println("  " + slash + underscore + leftParenthesis + " " + 
+                rightParenthesis + backSlash); 
+        System.out.println(" " + slash + "      " + backSlash); 
+        System.out.println("" + slash + underscore + underscore + 
+                underscore + underscore + slash + backSlash + underscore +
+                underscore + backSlash + " "); 
 
         // 8. Вывод количества сотен, десятков и единиц числа
         System.out.println("\n8. Вывод количества сотен, десятков и единиц числа");
-        // произвольное число
         int randomNumber = 123;
-        // сотни
-        int countHundreds = randomNumber / 100;
-        // десятки
-        int countTens = (randomNumber / 10) % 10;
-        // единицы
-        int countUnits = randomNumber % 10;
-        // сумма цифр
-        int sumDigits = countHundreds + countTens + countUnits;
-        // произведение цифр
-        int multiplicationDigits = countHundreds * countTens * countUnits;
+        int hundreds = randomNumber / 100;
+        int tens = (randomNumber / 10) % 10;
+        int ones = randomNumber % 10;
+        int sumDigits = hundreds + tens + ones;
+        int multiplicationDigits = hundreds * tens * ones;
         System.out.println(" Число " + randomNumber + " содержит:");
-        System.out.println("  сотен - " + countHundreds);
-        System.out.println("  десятков - " + countTens);
-        System.out.println("  единиц - " + countUnits);
+        System.out.println("  сотен - " + hundreds);
+        System.out.println("  десятков - " + tens);
+        System.out.println("  единиц - " + ones);
         System.out.println("Сумма его цифр - " + sumDigits);
         System.out.println("Произведение - " + multiplicationDigits);
 
         System.out.println("\n9. Вывод времени");
         int timeInSeconds = 86399;
-        int clocks =  timeInSeconds / 60 / 60;
-        int minutes = (timeInSeconds / 60) % 60;
-        int seconds = timeInSeconds % 60;
-        System.out.println("Время: " + clocks + ":" + minutes + ":" + seconds);
+        int hh =  timeInSeconds / 60 / 60;
+        int mm = (timeInSeconds / 60) % 60;
+        int ss = timeInSeconds % 60;
+        System.out.println("Время: " + hh + ":" + mm + ":" + ss);
     }
-} 
+}
