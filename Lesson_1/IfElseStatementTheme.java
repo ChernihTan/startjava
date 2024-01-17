@@ -30,10 +30,10 @@ public class IfElseStatementTheme {
             System.out.println("Имя " + name + " начинается на букву 'M'"); 
         } else if (firstLetterName == 'I') {
             System.out.println("Имя " + name + " начинается на букву 'I'");
-          }
-          else {  
-           System.out.println("Имя " + name + " не начинается на букву 'M' или 'I'"); 
-            }
+        }
+        else {  
+            System.out.println("Имя " + name + " не начинается на букву 'M' или 'I'"); 
+        }
 
         //2.  Поиск большего числа
         System.out.println("\n2.  Поиск большего числа");
@@ -42,10 +42,10 @@ public class IfElseStatementTheme {
         if (a > b) {
             System.out.println("Число " + a + " больше числа " + b);
         } else if (a < b) {
-                    System.out.println("Число " + a + " меньше числа " + b);
-                } else {
-                    System.out.println("Числа " + a + " и " + b + " равны");
-                }
+            System.out.println("Число " + a + " меньше числа " + b);
+        } else {
+            System.out.println("Числа " + a + " и " + b + " равны");
+        }
 
         //3. Проверка числа
         System.out.println("\n3. Проверка числа");
@@ -55,17 +55,16 @@ public class IfElseStatementTheme {
         if (number == 0) {
             System.out.println("Это число 0");    
         } else {
-          
-          if (number % 2 == 0) {
-            even = "четным";
-          } else {
-            even = "нечетным";
-          }
-          if (number > 0) {
-            positiv = "положительным";
-          } else {
-            positiv = "отрицательным";
-          }
+            if (number % 2 == 0) {
+                even = "четным";
+            } else {
+                even = "нечетным";
+            }
+            if (number > 0) {
+                positiv = "положительным";
+            } else {
+                positiv = "отрицательным";
+            }
             System.out.println("Число " + number + " является " + positiv + " и " + even);  
         }
 
@@ -99,16 +98,16 @@ public class IfElseStatementTheme {
                 isEq100 = true;
             }
             if (isEq1 || isEq10 || isEq100) {
-               System.out.println("исходные числа: a = " + a + " b = " + b);
-               if (isEq1) {
-                System.out.println("цифра " + a1 + " - номер разряда 1");
-               }
-               if (isEq10) {
-                System.out.println("цифра " + a10 + " - номер разряда 2");
-               }
-               if (isEq100) {
-                System.out.println("цифра " + a100 + " - номер разряда 3");
-               }
+                System.out.println("исходные числа: a = " + a + " b = " + b);
+                if (isEq1) {
+                    System.out.println("цифра " + a1 + " - номер разряда 1");
+                }
+                if (isEq10) {
+                    System.out.println("цифра " + a10 + " - номер разряда 2");
+                }
+                if (isEq100) {
+                    System.out.println("цифра " + a100 + " - номер разряда 3");
+                }
             } else {
                 System.out.println("Одинаковых цифр в каждом разряде нет!");
             }
@@ -123,9 +122,9 @@ public class IfElseStatementTheme {
         if (symbol >= '\u0030' && symbol <= '\u0039') {
             System.out.println("цифра");
         } else if (symbol >= '\u0041' && symbol <= '\u005A') {
-                    System.out.println("- большая буква");
+            System.out.println("- большая буква");
         } else if (symbol >= '\u0061' && symbol <= '\u007A') {
-                    System.out.println("- маленькая буква");
+            System.out.println("- маленькая буква");
         } else if (symbol <= '\u00FF') {
             System.out.println("- не буква и не цифра");
         }
@@ -197,9 +196,9 @@ public class IfElseStatementTheme {
         int monthlSales = 15_000;
         float profitYear = (monthlSales - costProduction - rentalSpace) * 12;
         if (profitYear == 0) {
-                System.out.println("Прибыль за год: " + profitYear + " руб.\n");  
+            System.out.println("Прибыль за год: " + profitYear + " руб.\n");  
         } else {
-                System.out.printf("Прибыль за год: " + "%1$+,9.2f" + " руб.\n", profitYear); 
+            System.out.printf("Прибыль за год: " + "%1$+,9.2f" + " руб.\n", profitYear); 
         }
 
     }
