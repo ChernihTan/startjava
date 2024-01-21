@@ -29,8 +29,7 @@ public class IfElseStatementTheme {
             System.out.println("Имя " + name + " начинается на букву 'M'"); 
         } else if (name.charAt(0) == 'I') {
             System.out.println("Имя " + name + " начинается на букву 'I'");
-        }
-        else {  
+        } else {  
             System.out.println("Имя " + name + " не начинается на букву 'M' или 'I'"); 
         }
 
@@ -59,60 +58,41 @@ public class IfElseStatementTheme {
                 positivText = "положительным";
             } 
             System.out.println("Число " + number + " является " + positivText + " и " + evenText);  
-        }
-        else {
+        } else {
             System.out.println("Это число 0");
         }
-/*
-4.  Поиск одинаковых цифр в числах
-•   двум переменным присвойте любые целые трехзначные числа
-•   если у чисел есть одинаковые цифры, стоящие в одном и том же разряде, отобразите в консоль:
-o   исходные числа
-o   одинаковые в них цифры
-o   номера разрядов
-•   если равных цифр нет, то отобразите один раз соответствующее сообщение
-•   если все цифры в разрядах разные, то поразрядная проверка выполняться уже не должна
-•   для себя проверьте, правильно ли работает программа для чисел 123 и 223
-*/
+
         //4. Поиск одинаковых цифр в числах
         System.out.println("\n4. Поиск одинаковых цифр в числах");
         a = 123;
-        b = 223;
+        b = 423;  //223;
+        // определяем разряды
         int a1 = a % 10;
         int a10 = (a % 100) / 10;
         int a100 = a / 100;
         int b1 = b % 10;
         int b10 = (b % 100) / 10;
         int b100 = b / 100;
-        
-        // Условие задачи: "если все цифры в разрядах разные, то 
-        // поразрядная проверка выполняться уже не должна", т.е.
-        // поразрядная проверка делается не всегда, она не делается, если
-        // все цифры в числе a или b разные
-        // Делаю поразрядную проверку, только если хотя бы у одного числа есть 
-        // одинаковые цифры
-        if ((a1 == a10) || (a1 == a100) || (a10 == a100) ||
-            (b1 == b10) || (b1 == b100) || (b10 == b100)) {
-            System.out.println("Есть хотя бы одно число, у которого есть одинаковые цифры, " + 
-                    "значит делаем поразрядную проверку");
 
-            if ((a1 == b1) || (a10 == b10) || a100 == b100) {
-                System.out.println("исходные числа: a = " + a + " b = " + b);
-                if (a1 == b1) {
-                    System.out.println("цифра " + a1 + " - номер разряда 1");
-                }
-                if (a10 == b10) {
-                    System.out.println("цифра " + a10 + " - номер разряда 2");
-                }
-                if (a100 == b100) {
-                    System.out.println("цифра " + a100 + " - номер разряда 3");
-                }
-            } else {
-                System.out.println("Одинаковых цифр в каждом разряде нет!");
-            }
-        } else {
-            System.out.println("У обоих чисел все цифры разные.");
-        }
+        boolean isEqual1 = false;
+        boolean isEqual10 = false;
+        boolean isEqual100 = false;
+        System.out.println("исходные числа: a = " + a + " b = " + b);
+        if (a1 == b1) {
+            isEqual1 = true;
+            System.out.println("цифра " + a1 + " - номер разряда 1");
+        } 
+        if (a10 == b10) {
+            isEqual10 = true;
+            System.out.println("цифра " + a10 + " - номер разряда 2");
+        } 
+        if (a100 == b100) {
+            isEqual100 = true;
+            System.out.println("цифра " + a100 + " - номер разряда 3");
+        } 
+        if ((isEqual1 || isEqual10 || isEqual100)  == false) {
+            System.out.println("Одинаковых цифр в каждом разряде нет!");
+        } 
 
         //5. Определение символа по его коду
         System.out.println("\n5. Определение символа по его коду");
@@ -149,7 +129,6 @@ o   номера разрядов
         int programmingPercent = 92;
         int historyScore = 5;
         int programmingScore = 5;
-        float averagePercent = (historyPercent + programmingPercent) / 2f;
 
         // история
         if (historyPercent <= 60) {
@@ -167,8 +146,9 @@ o   номера разрядов
         } else if (programmingPercent <= 91) {
             programmingScore = 4;
         } 
-        // средний балл
+        // средний балл и процент
         float averageScore = (historyScore + programmingScore) / 2;
+        float averagePercent = (historyPercent + programmingPercent) / 2f;
         System.out.println("История\t\t\t\t\t" + historyScore + 
                 "\nПрограммирование\t\t\t" + programmingScore +
                 "\nCредний балл оценок по предметам\t" + averageScore +
