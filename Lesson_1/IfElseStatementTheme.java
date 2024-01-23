@@ -74,23 +74,21 @@ public class IfElseStatementTheme {
         int b10 = (b % 100) / 10;
         int b100 = b / 100;
 
-        boolean isEqual1 = false;
-        boolean isEqual10 = false;
-        boolean isEqual100 = false;
+        boolean isEqual = false;
         System.out.println("исходные числа: a = " + a + " b = " + b);
         if (a1 == b1) {
-            isEqual1 = true;
+            isEqual = true;
             System.out.println("цифра " + a1 + " - номер разряда 1");
         } 
         if (a10 == b10) {
-            isEqual10 = true;
+            isEqual = true;
             System.out.println("цифра " + a10 + " - номер разряда 2");
         } 
         if (a100 == b100) {
-            isEqual100 = true;
+            isEqual = true;
             System.out.println("цифра " + a100 + " - номер разряда 3");
         } 
-        if ((isEqual1 || isEqual10 || isEqual100)  == false) {
+        if (isEqual == false) {
             System.out.println("Одинаковых цифр в каждом разряде нет!");
         } 
 
@@ -125,12 +123,9 @@ public class IfElseStatementTheme {
 
         //7. Определение оценки по предметам
         System.out.println("\n7. Определение оценки по предметам");
-        int historyPercent = 59;
-        int programmingPercent = 92;
-        int historyScore = 5;
-        int programmingScore = 5;
-
         // история
+        int historyPercent = 59;
+        int historyScore = 5;
         if (historyPercent <= 60) {
             historyScore = 2;
         } else if (historyPercent <= 73) {
@@ -138,7 +133,10 @@ public class IfElseStatementTheme {
         } else if (historyPercent <= 91) {
             historyScore = 4;
         } 
+
         // программирование
+        int programmingPercent = 92;
+        int programmingScore = 5;
         if (programmingPercent <= 60) {
             programmingScore = 2;
         } else if (programmingPercent <= 73) {
@@ -146,8 +144,9 @@ public class IfElseStatementTheme {
         } else if (programmingPercent <= 91) {
             programmingScore = 4;
         } 
+
         // средний балл и процент
-        float averageScore = (historyScore + programmingScore) / 2;
+        float averageScore = (historyScore + programmingScore) / 2f;
         float averagePercent = (historyPercent + programmingPercent) / 2f;
         System.out.println("История\t\t\t\t\t" + historyScore + 
                 "\nПрограммирование\t\t\t" + programmingScore +
