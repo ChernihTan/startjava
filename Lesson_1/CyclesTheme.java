@@ -193,12 +193,12 @@ public class CyclesTheme {
 
         //9. Проверка, является ли число счастливым
         System.out.println("\n9. Проверка, является ли число счастливым.");
-        int ticketNumber = 378954; //111222; //23; //9351;
+        int ticketNumber = 111222; //378954; //111222; //23; //9351;
         if ((ticketNumber / 1_000_000) > 0) {
             System.out.println("Число цифр в номере билета " + ticketNumber + " больше 6.");
         } else {
-            int sumFirstHalf = 0;
-            int sumSecondHalf = 0;
+            int sumLeftHalf = 0;
+            int sumRightHalf = 0;
             int sum = 0;
             int digitsCount = 0;
             quotient = ticketNumber;
@@ -208,29 +208,31 @@ public class CyclesTheme {
                 quotient /= 10;
                 sum += remainder;
                 if (digitsCount == 3) {
-                    sumSecondHalf = sum;
+                    sumRightHalf = sum;
                     sum = 0;
                 }
             }
             // В номере билета могут быть ведущие нули
             if (digitsCount  >= 4 && digitsCount <= 6) {
-                sumFirstHalf = sum;
+                sumLeftHalf = sum;
             } else if (digitsCount  >= 0 && digitsCount <=2) {
-                sumSecondHalf = sum;
+                sumRightHalf = sum;
             }    
             String text = " не является";
-            if (sumFirstHalf == sumSecondHalf) {
+            if (sumLeftHalf == sumRightHalf) {
                 text = " является";
             } 
             System.out.println("Число " + ticketNumber + text + " счастливым.");
-            System.out.println("Сумма цифр ABC = " + sumFirstHalf + ", а сумма DEF = " + sumSecondHalf);
+            System.out.println("Сумма цифр ABC = " + sumLeftHalf + ", а сумма DEF = " + sumRightHalf);
         }
 
         //10. Отображение таблицы умножения Пифагора
         System.out.println("\n10. Отображение таблицы умножения Пифагора.");        
         // Заголовок
-        System.out.printf("%3c|%3d%3d%3d%3d%3d%3d%3d%3d%n", ' ', 2,3,4,5,6,7,8,9);
-        System.out.printf("----------------------------%n");
+        System.out.println("   |  2  3  4  5  6  7  8  9");
+        System.out.println("---+------------------------");
+//        System.out.printf("%3c|%3d%3d%3d%3d%3d%3d%3d%3d%n", ' ', 2,3,4,5,6,7,8,9);
+//        System.out.printf("----------------------------%n");
         // Сама таблица умножения
         String vertical = "";
         for (int i = 2; i < 10; i++) {
