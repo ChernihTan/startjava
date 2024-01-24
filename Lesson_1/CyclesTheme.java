@@ -40,8 +40,8 @@ public class CyclesTheme {
         System.out.println("max = " + max + " и min = " + min);
 
         // вывод в одну строку в порядке убывания все числа в интервале (min, max)
-        System.out.println("Вывод в одну строку в порядке убывания все числа в интервале (" + max +
-            ", " + min + "):");
+        System.out.println("Вывод в одну строку в порядке убывания все числа в интервале (" +
+                max + ", " + min + "):");
         for (int i = --max; i > min; i--) {
             System.out.print(i + " ");
         }
@@ -49,6 +49,8 @@ public class CyclesTheme {
         //3. Вывод реверсивного числа и суммы его цифр
         System.out.println("\n\n3. Вывод реверсивного числа и суммы его цифр.");
         int initialNumber = 1234;
+        System.out.print("Исходное число " + initialNumber + 
+                ", исходное число в обратном порядке ");
         // частное
         int quotient = initialNumber;
         int sumDigits = 0;
@@ -58,7 +60,6 @@ public class CyclesTheme {
             System.out.print(remainder);
             sumDigits += remainder;
         }
-        System.out.print("Исходное число " + initialNumber + ", исходное число в обратном порядке ");
         System.out.println("\nСумма полученных цифр " + sumDigits);
 
         //4. Вывод чисел в несколько строк
@@ -90,8 +91,8 @@ public class CyclesTheme {
 
         //5. Проверка количества двоек числа на четность/нечетность
         System.out.println("\n5. Проверка количества двоек числа на четность/нечетность.");
-        int startingNumber = 3242592;
-        quotient = startingNumber;
+        initialNumber = 3242592;
+        quotient = initialNumber;
         int quantityTwos = 0;
         while (quotient > 0) {
             if (quotient % 10 == 2) {
@@ -99,7 +100,7 @@ public class CyclesTheme {
             }
             quotient /= 10;
         }
-        System.out.print("В числе " + startingNumber);
+        System.out.print("В числе " + initialNumber);
         if (quantityTwos % 2 != 0) {
             System.out.println(" нечетное количество двоек - " + quantityTwos);
         } else {
@@ -113,7 +114,7 @@ public class CyclesTheme {
             for (int j = 1; j <= 10; j++) {
                 System.out.print("*");
             }
-            System.out.println("");
+            System.out.println();
         }
 
         System.out.println("Прямоугольный треугольник:");
@@ -124,7 +125,7 @@ public class CyclesTheme {
                 System.out.print("#");
                 column++;
             }
-            System.out.println("");
+            System.out.println();
             row--; 
         }
 
@@ -155,12 +156,12 @@ public class CyclesTheme {
         min = 15;
         max = 48;
         // определяю первый нечетный
-        if ( min % 2 == 0) {
+        if (min % 2 == 0) {
             min++;
         } 
         System.out.printf("%-11s%-11s%-11s %n", "DECIMAL", "CHARACTER", "DESCRIPTION");
         for (int i = min; i < max; i += 2) {
-            System.out.printf(" %3d           %1c           %-30s%n", i, (char) i, Character.getName(i));
+            System.out.printf(" %3d           %1c           %-30s%n", i, i, Character.getName(i));
         }
 
         //маленькие английские буквы, имеющие четные коды
@@ -170,26 +171,25 @@ public class CyclesTheme {
         if ( min % 2 == 1) {
             min++;
         } 
-        System.out.printf("%-11s%-11s%-11s %n", "DECIMAL", "CHARACTER", "DESCRIPTION");
         for (int i = min; i <= max; i += 2) {
-            System.out.printf(" %3d           %1c           %-30s%n", i, (char) i, Character.getName(i));
+            System.out.printf(" %3d           %1c           %-30s%n", i, i, Character.getName(i));
         }
 
         //8. Проверка, является ли число палиндромом
         System.out.println("\n8. Проверка, является ли число палиндромом.");
-        int originalNumber = 123454321;
-        quotient = originalNumber;
+        initialNumber = 2123454321;
+        quotient = initialNumber;
         int palindrome = 0;
         while (quotient != 0) {
             int remainder = quotient % 10;
             palindrome = palindrome * 10 + remainder;
             quotient /= 10;
         }
-        String textNo = "";
-        if (originalNumber != palindrome) {
-            textNo = " не";
+        String partText = "";
+        if (initialNumber != palindrome) {
+            partText = " не";
         }
-        System.out.println("Число " + originalNumber + textNo + " является палиндромом.");    
+        System.out.println("Число " + initialNumber + partText + " является палиндромом.");    
 
         //9. Проверка, является ли число счастливым
         System.out.println("\n9. Проверка, является ли число счастливым.");
