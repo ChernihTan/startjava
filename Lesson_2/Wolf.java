@@ -1,44 +1,48 @@
 public class Wolf {
     private char sex;
     private String nickName;
-    // вес в кг
+    // в кг
     private float weight;
     private int age;
     private String colour;
 
     // Методы геттеры и сеттеры
-    // пол животного
     public char getSex() {
         return sex;
     }
+
     public void setSex(char sex) {
         this.sex = sex;
     }
-    // кличка
+
     public String getNickName() {
         return nickName;
     }
+
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
-    // окрас
+
     public String getColour() {
         return colour;
     }
+
     public void setColour(String colour) {
         this.colour = colour;
     }
-    // вес в кг
+
     public float getWeight() {
         return weight;
     }
+
     public void setWeight(float weight) {
         this.weight = weight;
     }
-    // возраст животного
+
     public int getAge() {
         return age;
     }
+
     public void setAge(int age) {
         //возраст волка не может быть > 8 лет
         if(age > 8) {
