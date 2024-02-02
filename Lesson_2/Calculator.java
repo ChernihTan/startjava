@@ -1,72 +1,44 @@
 public class Calculator {
 
-//    private int firstNumber = 2;
-//    private int secondNumber = 10;
-//    private char mathOperation = '^';
-//    private float result = 0;
-/*
-создайте класс Calculator. Он будет отвечать за проверку математического знака и сами вычисления
-    замените все if-else, проверяющие математический знак, на оператор switch
-    выводите сообщение, если введенная мат. операция не поддерживается
-*/
-    public boolean check(char mathOperation) {
-        boolean isExists;
-        switch(mathOperation) {
-            case '+' :
-                isExists = true;
-                break;
-            case '-' :
-                isExists = true;
-                break;
-            case '*' :
-                isExists = true;
-                break;
-            case '/' :
-                isExists = true;
-                break;
-            case '^' :
-                isExists = true;
-                break;
-            case '%' :
-                isExists = true;
-                break;
-            default :
-                isExists = false;
-                System.out.println("Введенная мат. операция не поддерживается!");
-        }
-        return isExists;
-    }
-
-    public float calculating(int firstNumber, char mathOperation, int secondNumber) {
-
+    // метод отвечает за проверку математического знака и сами вычисления
+    public float calculate(int firstNumber, char mathOperation, int secondNumber) {
         float result = 0;
         // операции +, -, *, /, ^, %
         switch(mathOperation) {
             case '+' :
-                result = firstNumber + secondNumber;
-                break;
+                return firstNumber + secondNumber;
             case '-' :
-                result = firstNumber - secondNumber;
-                break;
+                return firstNumber - secondNumber;
             case '*' :
-                result = firstNumber * secondNumber;
-                break;
+                return firstNumber * secondNumber;
             case '/' :
                 if (secondNumber == 0) {
                     System.out.println("Делить на ноль нельзя");
+                    return result;
                 } else {
-                    result = firstNumber / (float) secondNumber;
+                    return firstNumber / (float) secondNumber;
                 }
-                break;
             case '^' :
                 result = 1;
                 for (int i = 1; i <= secondNumber; i++) {
                     result *= firstNumber;
                 }
-                break;
+                return result;
             case '%' :
-                result = firstNumber % secondNumber;
-            }
-            return result;
+                return firstNumber % secondNumber;
+            default :
+                System.out.println("Введенная мат. операция не поддерживается!");
+                return result;
+        }
+    }
+
+    public void printResult(int a, char sign, int b, float result) {
+        System.out.print(a + " " + sign + 
+                " " + b + " = ");
+        if(result % 1 > 0) {
+            System.out.printf("%.2f%n", result);
+        } else {
+            System.out.printf("%.0f%n", result);
+        }
     }
 }

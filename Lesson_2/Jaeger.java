@@ -1,25 +1,26 @@
 public class Jaeger {
 
-    private String modelName; //= "Bracer Phoenix";
-    private String mark;    //= "Mark-5";
-    private String origin;  // = "USA";
-    private float height;   // = 70.7f;
-    private float weight;   // = 2.1f;
-    private int strength;   // = 8;   // сила
-    private int armor;      // = 9;      // броня
+    private String modelName;
+    private String mark;
+    private String origin;
+    private float height;
+    private float weight;
+    private int strength;
+    private int armor;
     private String modelNameRus;
-    static int count = 0;
+    private static int count = 0;
 
     // конструкторы
     public Jaeger() {
         count++;
-        modelName = "unknown" + count; 
+        modelName = "Unknown" + count; 
     }
 
     // конструктор, где указана последовательность 2 параметров
     public Jaeger(String modelName, String mark) {
         this.modelName = modelName;
         this.mark = mark;
+        count++;
     }
 
     // конструктор, где указаны все параметры 
@@ -33,6 +34,7 @@ public class Jaeger {
         this.weight = weight;
         this.strength = strength;
         this.armor = armor;
+        count++;
     }
 
     //геттеры и сеттеры
@@ -76,7 +78,6 @@ public class Jaeger {
         this.weight = weight;
     }
 
-
     public int getStrength() {
         return strength;
     }
@@ -84,7 +85,6 @@ public class Jaeger {
     public void setStrength(int strength) {
         this.strength = strength;
     }
-
 
     public int getArmor() {
         return armor;
@@ -102,6 +102,9 @@ public class Jaeger {
         this.modelNameRus = modelNameRus;
     }
 
+    public static int getCount() {
+        return count;
+    }
 
     boolean drift() {
         return true;

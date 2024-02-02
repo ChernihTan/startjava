@@ -5,6 +5,7 @@ public class JaegerTest {
 
         // Страйкер Эврика   
         Jaeger jaegerOne = new Jaeger();
+        System.out.println("Первоначально создан егерь с именем (через пустой конструктор) - " + jaegerOne.getModelName());
         jaegerOne.setModelName("Striker Eureka");  // Страйкер Эврика
         jaegerOne.setMark("Mark-5");
         jaegerOne.setOrigin("Australia");
@@ -14,7 +15,7 @@ public class JaegerTest {
         jaegerOne.setArmor(9);
         jaegerOne.setModelNameRus("Страйкер Эврика");
 
-        System.out.println("Создан егерь " + jaegerOne.getModelNameRus() + " или " +
+        System.out.println("Откорректирован созданный егерь, теперь это " + jaegerOne.getModelNameRus() + " или " +
                 jaegerOne.getModelName() + " поколение - " + jaegerOne.getMark() +
                 ".\nСтрана производитель - " +  jaegerOne.getOrigin() +
                 ",\nвысота робота - " + jaegerOne.getHeight() +
@@ -34,6 +35,7 @@ public class JaegerTest {
                 "Технические характеристики: сила - " + jaegerSecond.getStrength() +
                 ", броня - " + jaegerSecond.getArmor() + ".\n");        
 
+        System.out.println("Всего создано егерей - " + Jaeger.getCount() + ":");
         if(jaegerOne.getHeight() > jaegerSecond.getHeight()) {
             System.out.print(jaegerOne.getModelName());
         } else {
@@ -46,6 +48,6 @@ public class JaegerTest {
         } else {
             System.out.print(jaegerSecond.getModelName());
         }
-        System.out.println(" сильнее.");
+        System.out.println(" более сильный.");
     }
 }
