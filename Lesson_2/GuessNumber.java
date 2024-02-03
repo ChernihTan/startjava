@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class GuessNumber {
 
     // возвращает 1 - выиграл первый игрок, 0 - выиграл второй игрок
-    public int game(String Player1, String Player2) {
+    public int game(String namePlayer1, String namePlayer2) {
         Scanner scanner = new Scanner(System.in);
         //Math.random() генерирует случайные вещественные числа из промежутка [0;1)
         //int computerNumber = (int) (Math.random()*100) + 1;
@@ -24,9 +24,9 @@ public class GuessNumber {
             whoPlays = count % 2;
 
             if (whoPlays == 1) {
-                namePlayer = Player1;
+                namePlayer = namePlayer1;
             } else {
-                namePlayer = Player2;
+                namePlayer = namePlayer2;
             }
             System.out.print("\nИгрок " + namePlayer + " делает попытку отгадать число: ");
             guess = scanner.nextInt();
