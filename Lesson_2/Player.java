@@ -14,17 +14,17 @@ public class Player {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public int getWinsPoints() {
         return winsPoints;
     }
 
-    public void setWinsPoints(int winsPoints) {
-        this.winsPoints = winsPoints;
-    }
+//    public void setWinsPoints(int winsPoints) {
+//        this.winsPoints = winsPoints;
+//    }
 
     public void addPoint() {
         winsPoints++;

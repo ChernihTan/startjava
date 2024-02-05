@@ -5,17 +5,14 @@ public class CalculatorTest {
         Scanner scanner = new Scanner(System.in);
         String answer;
         do {
-            int a;
-            char sign;
-            int b;
             System.out.print("\nВведите первое число: ");
-            a = scanner.nextInt();
+            int a = scanner.nextInt();
             
             System.out.print("Введите знак математической операции: ");
-            sign = scanner.next().charAt(0);
+            char sign = scanner.next().charAt(0);
 
             System.out.print("Введите второе число: ");
-            b = scanner.nextInt();
+            int b = scanner.nextInt();
 
             Calculator calc = new Calculator();
             float result = calc.calculate(a, sign, b);

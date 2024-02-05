@@ -2,34 +2,28 @@ import java.util.Scanner;
 
 public class GuessNumberTest {
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in, "cp866");
         System.out.println("Начинаем игру \"Угадай число\"."); 
-        System.out.println("Для участия в игре приглашаются два игрока."); 
+        System.out.println("Для участия в игре приглашаются два игрока.");
+        // Ввод игроков
+        System.out.print("Первый игрок,представьтесь, пожалуйста: ");
+        String name = scanner.next();    
+        Player player1 = new Player(name);
+        System.out.print("Второй игрок, представьтесь, пожалуйста: ");
+        name = scanner.next();    
+        Player player2 = new Player(name);
 
-        Player player1 = new Player("Игрок1");
-        Player player2 = new Player("Игрок2");
-        GuessNumber gameProcess = new GuessNumber();
+        GuessNumber game = new GuessNumber();
         String answer;
         String namePlayer;
         int count = 0;
         // Ввод игроков
-        do {
-            count++;
-            System.out.print("Игрок №" + count + ", представьтесь, пожалуйста: ");
-            switch(count) {
-            case 1:
-                player1.setName(scanner.next());
-                break;
-            case 2:
-                player2.setName(scanner.next());
-            }
-        } while (count < 2); 
+
         System.out.println("Игру начинают два игрока под именами: " + 
                 player1.getName() + " и " + player2.getName());
         // игра
         do {
-            int whoWins = gameProcess.game(player1.getName(), player2.getName());
+            int whoWins = game.start(player1, player2);
             switch(whoWins) {
                 case 1:
                     player1.addPoint();
