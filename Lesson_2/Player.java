@@ -9,25 +9,16 @@ public class Player {
         winsPoints = 0;
     }    
 
-    // геттеры и сетторы
+    // геттеры и сеттеры
     public String getName() {
         return name;
     }
-
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
     public int getWinsPoints() {
         return winsPoints;
     }
 
-//    public void setWinsPoints(int winsPoints) {
-//        this.winsPoints = winsPoints;
-//    }
-
     public void addPoint() {
         winsPoints++;
     }
-
 }
