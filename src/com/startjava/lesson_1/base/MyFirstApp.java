@@ -1,9 +1,5 @@
+package com.startjava.lesson_1.base;
 
-/*
-Online Java - IDE, Code Editor, Compiler
-
-Online Java is a quick and easy tool that helps you to build, compile, test your programs online.
-*/
 import java.nio.charset.Charset; // подключаем класс Charset,
 import java.util.Scanner;
 

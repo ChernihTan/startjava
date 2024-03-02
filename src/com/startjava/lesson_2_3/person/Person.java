@@ -1,11 +1,13 @@
+package com.startjava.lesson_2_3.person;
+
 class Person {
 
     // Поля (атрибуты), описывающие характеристики человека
     //пол, имя, рост, вес, возраст
-    char sex = 'М';
-    String name = "Иван Иванович";
+    private char sex = 'М';
+    private String name = "Иван Иванович";
     // рост в метрах
-    float height = 1.84f;
+    private float height = 1.84f;
     // вес в кг
     float weight = 92f;
     int age = 65;
