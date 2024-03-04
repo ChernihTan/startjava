@@ -2,8 +2,12 @@ package com.startjava.lesson_2_3.rps;
 
 import java.util.Random;
 import java.util.Scanner;
-       // Игра Камень-Ножницы-Бумага
-public class qRpsGameFormatting {
+
+// Игра Камень-Ножницы-Бумага
+public class RpsGameFormatting {
+    private static final String ROCK = "R";     //"✊";
+    private static final String SCISSORS = "S"; //"✌️";
+    private static final String PAPER = "P";    //"✋";
 
     public static void main(String[] args) throws InterruptedException {
         Random r = new Random();
@@ -24,10 +28,6 @@ public class qRpsGameFormatting {
         defineWinner(name1, sign1, name2, sign2);
     }
 
-    private static final String ROCK = "R";     //"✊";
-    private static final String SCISSORS = "S"; //"✌️";
-    private static final String PAPER = "P";    //"✋";
-
     private static String inputName(Scanner console) {
         System.out.print("Введите имя игрока: ");
         return console.nextLine();
@@ -38,18 +38,17 @@ public class qRpsGameFormatting {
         return r.nextInt(1, 100);
     }
 
-    private static String defineSign (int position) {
+    private static String defineSign(int position) {
         String sign = ROCK;
         if (position > 66) {
-            sign = PAPER;  //ROCK;
-        }
-        else if (position > 33) {
-            sign = SCISSORS;  //ROCK;
+            sign = PAPER;
+        } else if (position > 33) {
+            sign = SCISSORS;
         }
         return sign;
     }
 
-    private static void showSigns (String sign) throws InterruptedException {
+    private static void showSigns(String sign) throws InterruptedException {
         for (int i = 0; i < 5; i++) {
             System.out.print(ROCK + "\r");
             Thread.sleep(100);
@@ -61,15 +60,15 @@ public class qRpsGameFormatting {
         System.out.println(sign);
     }
 
-    private static void defineWinner (String name1, String sign1, String name2, String sign2) {
+    private static void defineWinner(String name1, String sign1, String name2, String sign2) {
         if (sign1.equals(sign2)) {
             System.out.println("\nПобедила дружба!");
             return;
         }
 
         boolean isName1Equal = sign1.equals(ROCK) && sign2.equals(SCISSORS) ||
-            sign1.equals(SCISSORS) && sign2.equals(PAPER) ||
-            sign1.equals(PAPER) && sign2.equals(ROCK);
+                sign1.equals(SCISSORS) && sign2.equals(PAPER) ||
+                sign1.equals(PAPER) && sign2.equals(ROCK);
 
         if (isName1Equal) {
             System.out.println("\nПобедил - " + name1);
