@@ -1,14 +1,14 @@
 package com.startjava.lesson_2_3_4.calculator;
 public class Calculator {
     // метод отвечает за проверку математического знака и сами вычисления
-    public static void calculate(String Expression) throws NumberFormatException, ArithmeticException,
+    public static void calculate(String expression) throws NumberFormatException, ArithmeticException,
             SignException, UnspacedExpression, NegativeNumber, ArrayIndexOutOfBoundsException
     {
         int a = 0;
         int b = 0;
         char sign = ' ';
         // Разбор выражения
-        String[] words = Expression.split(" ");  //(" |\\\n");
+        String[] words = expression.split(" ");  //(" |\\\n");
         String[] arr = new String[3];
         double result = Double.NaN;
         // Убираем пустые строки, если случайно набрали несколько пробелов подряд

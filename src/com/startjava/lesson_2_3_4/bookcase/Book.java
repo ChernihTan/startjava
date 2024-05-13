@@ -11,6 +11,7 @@ public class Book {
         this.title = title;
         this.yearPublication = yearPublication;
     }
+
     public String getAuthor() {
         return author;
     }
@@ -18,6 +19,7 @@ public class Book {
     public void setAuthor(String author) {
         this.author = author;
     }
+
     public String getTitle() {
         return title;
     }
@@ -25,6 +27,7 @@ public class Book {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public int getYearPublication() {
         return yearPublication;
     }
@@ -32,16 +35,17 @@ public class Book {
     public void setYearPublication(int yearPublication) {
         this.yearPublication = yearPublication;
     }
+
     public int getInformationLength() {
         informationLength = author.length() + title.length() + 4;
         return informationLength;
     }
+
     public void setInformationLength() {
-        this.informationLength = author.length() + title.length() + 4;;
+        this.informationLength = author.length() + title.length() + 4;
     }
 
     public String toString() {
-        String str = author + ", " + title + ", " + yearPublication;
-        return str;
-     }
+        return author + ", " + title + ", " + yearPublication;
+    }
 }
