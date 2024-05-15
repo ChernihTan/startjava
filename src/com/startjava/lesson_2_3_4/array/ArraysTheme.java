@@ -7,191 +7,25 @@ import java.util.Scanner;
 public class ArraysTheme {
     public static void main(String[] args) throws InterruptedException {
         // 1. Реверс значений массива
-        System.out.println("1. Реверс значений массива");
-        int[] sourceArray = {1, 7, 4, 5, 2, 6, 3};
-        System.out.printf("%17s", "До реверса: [");
-        printArray(sourceArray);
-        System.out.println("]");
-
-        int length = sourceArray.length;
-        int countIteration = length / 2;
-        int temp;
-        for (int i = 0; i < countIteration; i++) {
-            temp = sourceArray[i];
-            sourceArray[i] = sourceArray[length - i - 1];
-            sourceArray[length - i - 1] = temp;
-        }
-        System.out.printf("%17s", "После реверса: [");
-        printArray(sourceArray);
-        System.out.println("]");
+        reversalOfArrayValues();
 
         // 2. Вычисление факториала
-        System.out.println("\n2. Вычисление факториала");
-        int indexStart = 0;
-        int indexEnd = 9;
-        int[] multipliers = new int[indexEnd - indexStart + 1];
-        for (int i = indexStart; i <= indexEnd; i++) {
-            multipliers[i] = i;
-        }
-        int factorial = 1;
-        for (int i = 1; i <= indexEnd - 1; i++) {
-            System.out.print((i == 1 ? "" : " * ") + multipliers[i]);
-            factorial *= multipliers[i];
-        }
-        System.out.println(" = " + factorial);
+        factorialCalculation();
 
-        // 3. У д а л е н и е  э л е м е н т о в  м а с с и в а
-        System.out.println("\n3. Удаление элементов массива");
-        double[] realRandomNumbers = new double[15];
-        length = realRandomNumbers.length;
-        // Math.random() генерирует случайные вещественные числа из промежутка [0;1)
-        for (int i = 0; i < length; i++) {
-            realRandomNumbers[i] = Math.random();
-        }
-        System.out.println("Исходный массив:");
-        int averageIndex = length / 2;
-        for (int i = 0; i < length; i++) {
-            if (i == averageIndex) {
-                System.out.printf("  %,.3f\n", realRandomNumbers[i]);
-            } else {
-                System.out.printf("  %,.3f", realRandomNumbers[i]);
-            }
-        }
-        System.out.println();
-        double numberMiddle = realRandomNumbers[averageIndex];
-        System.out.printf("Число из середины массива:   %,.3f \n", numberMiddle);
-        // Измененный массив
-        System.out.println("Измененный массив:");
-        for (int i = 0; i < length; i++) {
-            double realNumber = realRandomNumbers[i] > numberMiddle ? 0.00 : realRandomNumbers[i];
-            if (i == averageIndex) {
-                System.out.printf("  %,.3f\n", realNumber);
-            } else {
-                System.out.printf("  %,.3f", realNumber);
-            }
-        }
+        // 3. Удаление элементов массива
+        // Очистка некоторых элементов массива
+        changingSomeArrayElements();
 
-        // 4. В ы в о д   а л ф а в и т а   л е с е н к о й
-        System.out.println("\n4. Вывод алфавита лесенкой");
-        char[] alphabet = new char[26];
-        length = alphabet.length;
-        // Инициализацияи массива
-        for (int i = 0; i < length; i++) {
-            alphabet[i] = (char) (65 + i);
-        }
-        // вывод лесенкой
-        for (int i = 1; i <= length; i++) {
-            for (int j = length - 1; j >= length - i; j--) {
-                System.out.printf("%c", alphabet[j]);
-            }
-            System.out.println();
-        }
+        // 4.  Вывод алфавита лесенкой
+        alphabetOutputByLadder();
 
         // 5. Заполнение массива уникальными числами.
-        System.out.println("\n5. Заполнение массива уникальными числами");
-        int[] uniqueIntegers = new int[30];
-        int rangeBegin = 60;
-        int rangeEnd = 100;
-        // Math.random() генерирует случайные вещественные числа из промежутка [0;1)
-        uniqueIntegers[0] = (int) (Math.random() * (rangeEnd - rangeBegin)) + rangeBegin;
-        int number = 0;
-        for (int i = 1; i < uniqueIntegers.length; i++) {
-            boolean isUnique = false; // не уникально, продолжаю искать
-            while (!isUnique) {
-                number = (int) (Math.random() * (rangeEnd - rangeBegin)) + rangeBegin;
-                isUnique = true;
-                for (int j = 0; j < i; j++) {
-                    if (uniqueIntegers[j] == number) {
-                        isUnique = false;  // не уникальное, продолжаю искать
-                        break;
-                    }
-                }
-            }
-            uniqueIntegers[i] = number;
-        }
-        // сортировка по возрастанию
-        Arrays.sort(uniqueIntegers);
-        for (int integer : uniqueIntegers) {
-            System.out.printf("  %d", integer);
-        }
+        fillingArrayWithUniqueNumbers();
 
         // 6. Виселица
-        System.out.println("\n6. Виселица");
-        String[] repository = {"ЕВРОПА", "ЛАНДЫШ", "ИГРОК", "ТАЙГА",
-                "ГАДАЛКА", "БАБОЧКА",
-                "МАРЦИПАН", "КАБЛУЧОК", "ЛАБИРИНТ", "ЛАБОРАНТ",
-                "ПАВИЛЬОН", "МАТЕРИАЛ", "САКСОФОН"};
+        gameGallows();
 
-        System.out.println("Начинаем игру \"Угадай слово\".");
-        // Выбираю слово через случайную выборку
-        Random randomNum = new Random();
-        number = randomNum.nextInt(repository.length);
-        String variantWord = repository[number];  // выбранный вариант слова
-
-        char[] word = variantWord.toCharArray();  // слово по букавам
-        char[] wordScreen = word.clone();         // слово для отображения на экране
-        Arrays.fill(wordScreen, '_');
-
-        // Слово на экран
-        for (char symbol : wordScreen) {
-            System.out.print(symbol + " ");
-        }
-        System.out.println();
-
-        // Подготовка перед циклом
-        Scanner scanner = new Scanner(System.in);
-        boolean isPlaying = true;
-        int counterUsedLetter = 0;  // счетчик использованных букв
-        int attempt = 5;   // попытки
-        char[] usedLetters = new char[33];  // массив использованных букв
-
-        // Цикл, пока isPlaying = true
-        do {
-            printLetters(usedLetters, counterUsedLetter);
-            System.out.print("Введите букву:  ");
-            char newChar = scanner.next().charAt(0);
-            newChar = Character.toUpperCase(newChar);
-
-            boolean found = false;
-            // Если такая буква уже была, не добавляю в массив использованных букв
-            int toIndex = counterUsedLetter + 1;
-            // Буква, не введеная повторно
-            if (linearSearch(usedLetters, newChar, toIndex) == -1) {
-                usedLetters[counterUsedLetter++] = newChar;
-                // букву вставляем в шаблон
-                for (int i = 0; i < word.length; i++) {
-                    // Подмена
-                    if (word[i] == newChar) {
-                        found = true;
-                        wordScreen[i] = newChar;
-                    }
-                }
-                // Если букву угадала, количество попыток увеличиваю
-                if (found) {
-                    attempt++;
-                    // attempt = ((attempt >= 5) ? 5 : attempt);
-                    attempt = Math.min(attempt, 5);
-                } else {
-                    attempt--;
-                    printGallowsNew(attempt);  // Рисую виселицу
-                }
-                // Слово на экран
-                for (char c : wordScreen) {
-                    System.out.print(c + " ");
-                }
-                System.out.println();
-                // Если количество попыток еще осталось и есть "_", то не все буквы найдены
-                if (linearSearch(wordScreen, '_', wordScreen.length) == -1) {
-                    System.out.println("\nВы отгадали слово!");
-                    isPlaying = false;
-                } else if (attempt == 0) {
-                    isPlaying = false;
-                    System.out.println("\nВы проиграли!");
-                }
-            }
-        } while (isPlaying);
-
-        // 7. Вывод текста с эффектом пишущей машинки ******************************
+        // 7. Вывод текста с эффектом пишущей машинки
         System.out.println("7. Вывод текста с эффектом пишущей машинки.");
         String text = "Java -- это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                 "-- James Gosling";
@@ -200,7 +34,7 @@ public class ArraysTheme {
                 "-- Robert Martin");
     }
 
-    public static int linearSearch(char[] array, char elementToSearch, int toIndex) {
+    public static int searchLetterInArray(char[] array, char elementToSearch, int toIndex) {
         for (int i = 0; i < toIndex; i++) {
             if (array[i] == elementToSearch) {
                 return i;
@@ -326,9 +160,215 @@ public class ArraysTheme {
     }
 
     public static void printArray(int[] array) {
-        System.out.print(array[0]);
+        System.out.print("[ " + array[0]);
         for (int i = 1; i < array.length; i++) {
             System.out.print(", " + array[i]);
         }
+        System.out.println("]");
+    }
+
+    public static void reversalOfArrayValues() {
+        System.out.println("1. Реверс значений массива");
+        int[] numbersForReverse = {1, 7, 4, 5, 2, 6, 3};
+        System.out.printf("%17s", "До реверса: ");
+        printArray(numbersForReverse);
+
+        int length = numbersForReverse.length;
+        int countIteration = length / 2;
+        length--;
+        for (int i = 0; i < countIteration; i++) {
+            int temp = numbersForReverse[i];
+            numbersForReverse[i] = numbersForReverse[length];
+            numbersForReverse[length] = temp;
+            length--;
+        }
+        System.out.printf("%17s", "После реверса: ");
+        printArray(numbersForReverse);
+    }
+
+    public static void factorialCalculation() {
+        System.out.println("\n2. Вычисление факториала");
+        int[] multipliers = new int[10];
+        int length = multipliers.length;
+        for (int i = 0; i < length; i++) {
+            multipliers[i] = i;
+        }
+        int factorial = 1;
+        for (int i = 1; i <= length - 2; i++) {
+            System.out.print((i == 1 ? "" : " * ") + multipliers[i]);
+            factorial *= multipliers[i];
+        }
+        System.out.println(" = " + factorial);
+    }
+
+    public static void changingSomeArrayElements() {
+        System.out.println("\n3. Удаление элементов массива");
+        double[] randomReals = new double[15];
+        // Math.random() генерирует случайные вещественные числа из промежутка [0;1)
+        for (int i = 0; i < randomReals.length; i++) {
+            randomReals[i] = Math.random();
+        }
+        printRandomReals(randomReals, false);
+        printRandomReals(randomReals, true);
+    }
+
+    public static void printRandomReals(double[] randomReals, boolean isModifyArray) {
+        int length = randomReals.length;
+        int averageIndex = length / 2;
+        double numberMiddle = randomReals[averageIndex];
+        if (isModifyArray) {
+            System.out.printf("\nЧисло из середины массива:   %,.3f \n", numberMiddle);
+            System.out.println("\nИзмененный массив:");
+        } else {
+            System.out.println("Исходный массив:");
+        }
+        for (int i = 0; i < length; i++) {
+            double realNumber = randomReals[i];
+            if (isModifyArray) {
+                realNumber = randomReals[i] > numberMiddle ? 0.00 : randomReals[i];
+            }
+            if (i == averageIndex) {
+                System.out.printf("  %,.3f\n", realNumber);
+            } else {
+                System.out.printf("  %,.3f", realNumber);
+            }
+        }
+        System.out.println();
+    }
+
+    public static void alphabetOutputByLadder() {
+        System.out.println("\n4. Вывод алфавита лесенкой");
+        char[] alphabet = new char[26];
+        int length = alphabet.length;
+        // Инициализацияи массива
+        for (int i = 0; i < length; i++) {
+            alphabet[i] = (char) (65 + i);
+        }
+        // вывод лесенкой
+        for (int i = 1; i <= length; i++) {
+            for (int j = length - 1; j >= length - i; j--) {
+                System.out.printf("%c", alphabet[j]);
+            }
+            System.out.println();
+        }
+    }
+
+    // 5. Заполнение массива уникальными числами.
+    public static void fillingArrayWithUniqueNumbers() {
+        System.out.println("\n5. Заполнение массива уникальными числами");
+        int[] uniqueIntegers = new int[30];
+        int beginRange = 60;
+        int endRange = 100;
+        // Math.random() генерирует случайные вещественные числа из промежутка [0;1)
+        // uniqueIntegers[0] = (int) (Math.random() * (endRange - beginRange)) + beginRange;
+        Random randomNum = new Random();
+        uniqueIntegers[0] = randomNum.nextInt(beginRange, endRange);
+        int number = 0;
+        for (int i = 1; i < uniqueIntegers.length; i++) {
+            boolean isUnique = false;
+            while (!isUnique) {
+                // number = (int) (Math.random() * (endRange - beginRange)) + beginRange;
+                number = randomNum.nextInt(beginRange, endRange);
+                isUnique = true;
+                for (int j = 0; j < i; j++) {
+                    if (uniqueIntegers[j] == number) {
+                        isUnique = false;
+                        break;
+                    }
+                }
+            }
+            uniqueIntegers[i] = number;
+        }
+        // сортировка по возрастанию
+        Arrays.sort(uniqueIntegers);
+        int column = 0;
+        for (int integer : uniqueIntegers) {
+            System.out.printf("  %d", integer);
+            column++;
+            if (column == 10) {
+                column = 0;
+                System.out.println();
+            }
+        }
+    }
+
+    public static void gameGallows() {
+        System.out.println("\n6. Виселица");
+        String[] repository = {
+                "ЕВРОПА", "ЛАНДЫШ", "ИГРОК", "ТАЙГА",
+                "ГАДАЛКА", "БАБОЧКА", "МАРЦИПАН", "КАБЛУЧОК",
+                "ЛАБИРИНТ", "ЛАБОРАНТ", "ПАВИЛЬОН", "МАТЕРИАЛ",
+                "САКСОФОН"};
+
+        System.out.println("Начинаем игру \"Угадай слово\".");
+        // Выбираю слово через случайную выборку
+        Random randomNum = new Random();
+        int number = randomNum.nextInt(repository.length);
+        String guessingWord = repository[number];  // выбранный вариант слова
+
+        char[] guessingWordArray = guessingWord.toCharArray();  // слово по букавам
+        char[] mask = guessingWordArray.clone();         // слово для отображения на экране
+        Arrays.fill(mask, '_');
+
+        // Слово на экран
+        for (char symbol : mask) {
+            System.out.print(symbol + " ");
+        }
+        System.out.println();
+
+        // Подготовка перед циклом
+        Scanner scanner = new Scanner(System.in);
+        boolean isPlaying = true;
+        int counterUsedLetter = 0;  // счетчик использованных букв
+        int attempt = 5;   // попытки
+        char[] usedLetters = new char[33];  // массив использованных букв
+
+        do {
+            printLetters(usedLetters, counterUsedLetter);
+            System.out.print("Введите букву:  ");
+            char newLetter = scanner.next().charAt(0);
+            newLetter = Character.toUpperCase(newLetter);
+
+            boolean found = false;
+            // Если такая буква уже была, не добавляю в массив использованных букв
+            int toIndex = counterUsedLetter + 1;
+            // Буква, не введеная повторно
+            if (searchLetterInArray(usedLetters, newLetter, toIndex) == -1) {
+                usedLetters[counterUsedLetter++] = newLetter;
+                // букву вставляем в шаблон
+                for (int i = 0; i < guessingWordArray.length; i++) {
+                    // Подмена
+                    if (guessingWordArray[i] == newLetter) {
+                        found = true;
+                        mask[i] = newLetter;
+                    }
+                }
+                // Если букву угадала, количество попыток увеличиваю
+                if (found) {
+                    attempt++;
+                    attempt = Math.min(attempt, 5);
+                } else {
+                    attempt--;
+                    printGallowsNew(attempt);  // Рисую виселицу
+                }
+                // Слово на экран
+                for (char c : mask) {
+                    System.out.print(c + " ");
+                }
+                System.out.println();
+                System.out.println("У вас осталось " + attempt + "  попыток.");
+
+                // Выхожу из цикла, если все буквы найдены или законсились попытки
+                isPlaying = false;
+                if (searchLetterInArray(mask, '_', mask.length) == -1) {
+                    System.out.println("\nВы отгадали слово!");
+                } else if (attempt == 0) {
+                    System.out.println("\nВы проиграли!");
+                    System.out.println("Загаданное слово - " + guessingWord + "\n");
+                } else {
+                    isPlaying = true;
+                }
+            }
+        } while (isPlaying);
     }
 }
