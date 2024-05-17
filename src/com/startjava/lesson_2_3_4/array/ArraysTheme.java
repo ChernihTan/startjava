@@ -7,34 +7,42 @@ import java.util.Scanner;
 public class ArraysTheme {
     public static void main(String[] args) throws InterruptedException {
         // 1. Реверс значений массива
-        reversalOfArrayValues();
+        reverse();
 
         // 2. Вычисление факториала
-        factorialCalculation();
+        calcFactorial();
 
         // 3. Удаление элементов массива
         // Очистка некоторых элементов массива
-        changingSomeArrayElements();
+        deleteElements();
 
         // 4.  Вывод алфавита лесенкой
-        alphabetOutputByLadder();
+        outputAlphabetByLadder();
 
         // 5. Заполнение массива уникальными числами.
-        fillingArrayWithUniqueNumbers();
+        fillUniqueNumbers();
 
         // 6. Виселица
         gameGallows();
 
         // 7. Вывод текста с эффектом пишущей машинки
+        outputTextWithEffectTypewriter();
+    }
+
+    private static void outputTextWithEffectTypewriter() {
         System.out.println("7. Вывод текста с эффектом пишущей машинки.");
         String text = "Java -- это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                 "-- James Gosling";
-        typewriter(text);
-        typewriter("Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
-                "-- Robert Martin");
+        try {
+            typewriter(text);
+            typewriter("Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
+                    "-- Robert Martin");
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static int searchLetterInArray(char[] array, char elementToSearch, int toIndex) {
+    private static int searchLetter(char[] array, char elementToSearch, int toIndex) {
         for (int i = 0; i < toIndex; i++) {
             if (array[i] == elementToSearch) {
                 return i;
@@ -43,63 +51,41 @@ public class ArraysTheme {
         return -1;
     }
 
-    public static void printLetters(char[] array, int index) {
+    private static void printLetters(char[] array, int index, char[] mask) {
         if (index > 0) {
             System.out.print("\nВы использовали буквы: ");
         }
         for (int i = 0; i < index; i++) {
-            System.out.print(array[i] + " ");
+            if ((searchLetter(mask, array[i], mask.length) == -1)) {
+                System.out.print(array[i] + " ");
+            }
         }
         System.out.println();
     }
 
-    public static void printGallowsNew(int version) {
+    private static void printGallowsNew() {
         // печать виселицы
-        String[] gallows = {
+        String gallows =
                 """
-                            |--------
-                            |/      |
-                            |       O
-                            |      /0\\
-                            |       /\\""",
-                """
-                            |--------
-                            |/      |
-                            |       @
-                            |
-                            |""",
-                """
-                            |--------
-                            |/      |
-                            |
-                            |
-                            |""",
-                """
-                            |--------
-                            |/
-                            |
-                            |
-                            |""",
-                """
-                            |
-                            |
-                            |
-                            |
-                            |"""
-        };
-        System.out.println(gallows[version] + "\n");
+                                    |--------
+                                    |/      |
+                                    |       O
+                                    |      /0\\
+                                    |       /\\
+                        """;
+        System.out.println(gallows + "\n");
     }
 
-    public static void typewriter(String text) throws InterruptedException {
+    private static void typewriter(String text) throws InterruptedException {
         // можно перечислить несколько разделителей, разделенных в свою очередь символом |
-        String[] words = text.split(" |\\,|\\.|\\\n"); // Разделения строки text с помощью метода split()
+        String[] words = text.split(" |\\,|\\.|\\\n");
         int indexLongWord = 0;
         int indexShortWord = 0;
         int lengthLongWord = words[0].length();
         int lengthShortWord = words[0].length();
         for (int i = 1; i < words.length; i++) {
             // Для проверки, что строка пустая или содержит только пробелы, используйте метод isBlank()
-            if (!words[i].isBlank()) { // words[i].length() != 0
+            if (!words[i].isBlank()) {
                 if (words[i].length() > lengthLongWord) {
                     lengthLongWord = words[i].length();
                     indexLongWord = i;
@@ -111,8 +97,9 @@ public class ArraysTheme {
             }
         }
         char[] letters = text.toCharArray();
-        // ищу индекс, с которого начинается короткое слово, оно может входить в состав других слов
-        // само короткое слово
+        // ищу индекс, с которого начинается само короткое слово,
+        // оно может входить в состав других слов
+
         String shortWord = words[indexShortWord];
         int indexSortInText;
         int indexLongInText;
@@ -159,34 +146,31 @@ public class ArraysTheme {
         System.out.println();
     }
 
-    public static void printArray(int[] array) {
-        System.out.print("[ " + array[0]);
+    private static void printArray(int[] array) {
+        System.out.print("[" + array[0]);
         for (int i = 1; i < array.length; i++) {
             System.out.print(", " + array[i]);
         }
         System.out.println("]");
     }
 
-    public static void reversalOfArrayValues() {
+    private static void reverse() {
         System.out.println("1. Реверс значений массива");
         int[] numbersForReverse = {1, 7, 4, 5, 2, 6, 3};
         System.out.printf("%17s", "До реверса: ");
         printArray(numbersForReverse);
 
-        int length = numbersForReverse.length;
-        int countIteration = length / 2;
-        length--;
-        for (int i = 0; i < countIteration; i++) {
+        int indexEnd = numbersForReverse.length - 1;
+        for (int i = 0; i < numbersForReverse.length / 2; i++) {
             int temp = numbersForReverse[i];
-            numbersForReverse[i] = numbersForReverse[length];
-            numbersForReverse[length] = temp;
-            length--;
+            numbersForReverse[i] = numbersForReverse[indexEnd];
+            numbersForReverse[indexEnd--] = temp;
         }
         System.out.printf("%17s", "После реверса: ");
         printArray(numbersForReverse);
     }
 
-    public static void factorialCalculation() {
+    private static void calcFactorial() {
         System.out.println("\n2. Вычисление факториала");
         int[] multipliers = new int[10];
         int length = multipliers.length;
@@ -201,42 +185,41 @@ public class ArraysTheme {
         System.out.println(" = " + factorial);
     }
 
-    public static void changingSomeArrayElements() {
+    private static void deleteElements() {
         System.out.println("\n3. Удаление элементов массива");
         double[] randomReals = new double[15];
+        int length = randomReals.length;
         // Math.random() генерирует случайные вещественные числа из промежутка [0;1)
-        for (int i = 0; i < randomReals.length; i++) {
+        for (int i = 0; i < length; i++) {
             randomReals[i] = Math.random();
         }
-        printRandomReals(randomReals, false);
-        printRandomReals(randomReals, true);
+        System.out.println("Исходный массив:");
+        printRandomReals(randomReals);
+
+        double numberMiddle = randomReals[length / 2];
+        System.out.printf("\nЧисло из середины массива:   %,.3f \n", numberMiddle);
+
+        for (int i = 0; i < length; i++) {
+            randomReals[i] = randomReals[i] > numberMiddle ? 0.00 : randomReals[i];
+        }
+        System.out.println("\nИзмененный массив:");
+        printRandomReals(randomReals);
     }
 
-    public static void printRandomReals(double[] randomReals, boolean isModifyArray) {
+    private static void printRandomReals(double[] randomReals) {
         int length = randomReals.length;
         int averageIndex = length / 2;
-        double numberMiddle = randomReals[averageIndex];
-        if (isModifyArray) {
-            System.out.printf("\nЧисло из середины массива:   %,.3f \n", numberMiddle);
-            System.out.println("\nИзмененный массив:");
-        } else {
-            System.out.println("Исходный массив:");
-        }
         for (int i = 0; i < length; i++) {
-            double realNumber = randomReals[i];
-            if (isModifyArray) {
-                realNumber = randomReals[i] > numberMiddle ? 0.00 : randomReals[i];
-            }
             if (i == averageIndex) {
-                System.out.printf("  %,.3f\n", realNumber);
+                System.out.printf("  %,.3f\n", randomReals[i]);
             } else {
-                System.out.printf("  %,.3f", realNumber);
+                System.out.printf("  %,.3f", randomReals[i]);
             }
         }
         System.out.println();
     }
 
-    public static void alphabetOutputByLadder() {
+    private static void outputAlphabetByLadder() {
         System.out.println("\n4. Вывод алфавита лесенкой");
         char[] alphabet = new char[26];
         int length = alphabet.length;
@@ -247,42 +230,39 @@ public class ArraysTheme {
         // вывод лесенкой
         for (int i = 1; i <= length; i++) {
             for (int j = length - 1; j >= length - i; j--) {
-                System.out.printf("%c", alphabet[j]);
+                System.out.print(alphabet[j]);
             }
             System.out.println();
         }
     }
 
     // 5. Заполнение массива уникальными числами.
-    public static void fillingArrayWithUniqueNumbers() {
+    private static void fillUniqueNumbers() {
         System.out.println("\n5. Заполнение массива уникальными числами");
-        int[] uniqueIntegers = new int[30];
+        int[] uniqueNumbers = new int[30];
         int beginRange = 60;
         int endRange = 100;
-        // Math.random() генерирует случайные вещественные числа из промежутка [0;1)
-        // uniqueIntegers[0] = (int) (Math.random() * (endRange - beginRange)) + beginRange;
-        Random randomNum = new Random();
-        uniqueIntegers[0] = randomNum.nextInt(beginRange, endRange);
-        int number = 0;
-        for (int i = 1; i < uniqueIntegers.length; i++) {
+        Random rnd = new Random();
+        uniqueNumbers[0] = rnd.nextInt(beginRange, endRange);
+        int newNumber = 0;
+        for (int i = 1; i < uniqueNumbers.length; i++) {
             boolean isUnique = false;
             while (!isUnique) {
-                // number = (int) (Math.random() * (endRange - beginRange)) + beginRange;
-                number = randomNum.nextInt(beginRange, endRange);
+                newNumber = rnd.nextInt(beginRange, endRange);
                 isUnique = true;
                 for (int j = 0; j < i; j++) {
-                    if (uniqueIntegers[j] == number) {
+                    if (uniqueNumbers[j] == newNumber) {
                         isUnique = false;
                         break;
                     }
                 }
             }
-            uniqueIntegers[i] = number;
+            uniqueNumbers[i] = newNumber;
         }
         // сортировка по возрастанию
-        Arrays.sort(uniqueIntegers);
+        Arrays.sort(uniqueNumbers);
         int column = 0;
-        for (int integer : uniqueIntegers) {
+        for (int integer : uniqueNumbers) {
             System.out.printf("  %d", integer);
             column++;
             if (column == 10) {
@@ -292,22 +272,21 @@ public class ArraysTheme {
         }
     }
 
-    public static void gameGallows() {
+    private static void gameGallows() {
         System.out.println("\n6. Виселица");
-        String[] repository = {
-                "ЕВРОПА", "ЛАНДЫШ", "ИГРОК", "ТАЙГА",
-                "ГАДАЛКА", "БАБОЧКА", "МАРЦИПАН", "КАБЛУЧОК",
-                "ЛАБИРИНТ", "ЛАБОРАНТ", "ПАВИЛЬОН", "МАТЕРИАЛ",
-                "САКСОФОН"};
+        String[] repository = {"ЕВРОПА", "ЛАНДЫШ", "ИГРОК", "ТАЙГА",
+                "ГАДАЛКА", "БАБОЧКА", "МАРЦИПАН", "КАБЛУЧОК", "ЛАБИРИНТ",
+                "ЛАБОРАНТ", "ПАВИЛЬОН", "МАТЕРИАЛ", "САКСОФОН"};
 
         System.out.println("Начинаем игру \"Угадай слово\".");
+
         // Выбираю слово через случайную выборку
         Random randomNum = new Random();
         int number = randomNum.nextInt(repository.length);
-        String guessingWord = repository[number];  // выбранный вариант слова
+        String guessingWord = repository[number];
 
-        char[] guessingWordArray = guessingWord.toCharArray();  // слово по букавам
-        char[] mask = guessingWordArray.clone();         // слово для отображения на экране
+        char[] guessingWordArray = guessingWord.toCharArray();
+        char[] mask = guessingWordArray.clone();
         Arrays.fill(mask, '_');
 
         // Слово на экран
@@ -319,54 +298,52 @@ public class ArraysTheme {
         // Подготовка перед циклом
         Scanner scanner = new Scanner(System.in);
         boolean isPlaying = true;
-        int counterUsedLetter = 0;  // счетчик использованных букв
-        int attempt = 5;   // попытки
-        char[] usedLetters = new char[33];  // массив использованных букв
+        int counterUsedLetter = 0;
+        int attempt = 5;
+        char[] usedLetters = new char[33];
 
         do {
-            printLetters(usedLetters, counterUsedLetter);
+            printLetters(usedLetters, counterUsedLetter, mask);
             System.out.print("Введите букву:  ");
             char newLetter = scanner.next().charAt(0);
             newLetter = Character.toUpperCase(newLetter);
 
-            boolean found = false;
             // Если такая буква уже была, не добавляю в массив использованных букв
+            // Если буква новая - вставляю в шаблон
+            boolean found = false;
             int toIndex = counterUsedLetter + 1;
-            // Буква, не введеная повторно
-            if (searchLetterInArray(usedLetters, newLetter, toIndex) == -1) {
+            if (searchLetter(usedLetters, newLetter, toIndex) == -1) {
                 usedLetters[counterUsedLetter++] = newLetter;
-                // букву вставляем в шаблон
                 for (int i = 0; i < guessingWordArray.length; i++) {
-                    // Подмена
                     if (guessingWordArray[i] == newLetter) {
                         found = true;
                         mask[i] = newLetter;
                     }
                 }
+
                 // Если букву угадала, количество попыток увеличиваю
                 if (found) {
-                    attempt++;
-                    attempt = Math.min(attempt, 5);
+                    attempt = ((++attempt >= 5) ? 5 : attempt);
                 } else {
                     attempt--;
-                    printGallowsNew(attempt);  // Рисую виселицу
                 }
-                // Слово на экран
+
                 for (char c : mask) {
                     System.out.print(c + " ");
                 }
                 System.out.println();
-                System.out.println("У вас осталось " + attempt + "  попыток.");
 
-                // Выхожу из цикла, если все буквы найдены или законсились попытки
+                // Выхожу из цикла, если все буквы найдены или закончились попытки
                 isPlaying = false;
-                if (searchLetterInArray(mask, '_', mask.length) == -1) {
+                if (searchLetter(mask, '_', mask.length) == -1) {
                     System.out.println("\nВы отгадали слово!");
                 } else if (attempt == 0) {
                     System.out.println("\nВы проиграли!");
+                    printGallowsNew();
                     System.out.println("Загаданное слово - " + guessingWord + "\n");
                 } else {
                     isPlaying = true;
+                    System.out.println("У вас осталось " + attempt + "  попыток.");
                 }
             }
         } while (isPlaying);
