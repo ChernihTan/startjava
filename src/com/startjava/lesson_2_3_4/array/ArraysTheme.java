@@ -90,7 +90,7 @@ public class ArraysTheme {
         }
         System.out.println("\nИзмененный массив:");
         printRandomReals(randomReals);
-        System.out.printf("\nОбнулили " + zeroElements + " элементов массива");
+        System.out.printf("\nОбнулили " + zeroElements + " элементов массива\n");
     }
 
     private static void printRandomReals(double[] randomReals) {
@@ -308,6 +308,8 @@ public class ArraysTheme {
     private static void typewriter(String text) throws InterruptedException {
         // можно перечислить несколько разделителей, разделенных в свою очередь символом |
         String[] words = text.split(" |\\,|\\.|\\\n|\\:|\\-");
+        // String[] words = text.split("\\p{P}");   // text.split(" |\\,|\\.|\\\n|\\:|\\-");
+
         int indexLongWord = 0;
         int indexShortWord = 0;
         int lengthLongWord = words[0].length();
