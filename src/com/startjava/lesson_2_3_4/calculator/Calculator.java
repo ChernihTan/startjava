@@ -1,63 +1,22 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
-    static final int CONSTANTA_ELEMENTS_IN_EXPRESSION = 3;
+    private static final int ARGS_LIMIT = 3;
     private static int a;
     private static int b;
     private static char sign;
     // метод отвечает за проверку математического знака и сами вычисления
 
-    public static double calculate(String expression) throws NumberFormatException, ArithmeticException,
-            SignException, UnspacedExpression, NegativeNumber {
+    public static double calculate(String expression) throws NumberFormatException {
         a = 0;
         b = 0;
         sign = ' ';
-        // Разбор выражения
-        String[] args = expression.split(" ");  // (" |\\\n");
+        // Разбор выражения, предварительно убираю лишние пробелы
+        String[] args = expression.strip().split("\s+");
         int length = args.length;
 
-        // если случайно набрали несколько пробелов подряд,
-        // не пустые элементы элементы массива переношу в начало массива
-        if (length < CONSTANTA_ELEMENTS_IN_EXPRESSION) {
-            // генерирую исключение
+        if (length != ARGS_LIMIT) {
             throw new UnspacedExpression("Ошибка: выражение введено без пробелов!\n");
-        }
-        // вариант 1 избавления от лишних пробелов
-        for (int i = 0; i < length - 1; i++) {
-            int j;
-            // если текущий элемент пустой, ищу далее первый не пустой
-            try {
-                if (args[i].isEmpty()) {
-                    j = i;
-                    do {
-                        j++;
-                    } while (args[j].isEmpty());
-                    args[i] = args[j];
-                    args[j] = "";
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                break;
-            }
-        }
-
-        // Вариант второй избавления от личших пробелов
-        String[] argsNew = expression.split(" ");  // (" |\\\n");
-        for (int i = 0; i < length - 1; i++) {
-            int j;
-            // если текущий элемент пустой, ищу далее первый не пустой
-            if (argsNew[i].isEmpty()) {
-                j = i;
-                do {
-                    if (++j == length) {
-                        break;
-                    }
-                } while (argsNew[j].isEmpty());
-                if (j == length) {
-                    break;
-                }
-                argsNew[i] = argsNew[j];
-                argsNew[j] = "";
-            }
         }
 
         a = defineArgument(args[0]);
@@ -70,23 +29,15 @@ public class Calculator {
         }
         // Выполнение операции (+, -, *, /, ^, %)
 
-        double result = switch (sign) {
-            case '+' -> (double) a + b;
-            case '-' -> (double) a - b;
-            case '*' -> (double) a * b;
+        return switch (sign) {
+            case '+' -> a + b;
+            case '-' -> a - b;
+            case '*' -> a * b;
             case '/' -> (double) a / b;
             case '^' -> Math.pow(a, b);
             case '%' -> (double) a % b;
             default -> throw new SignException("Ошибка: знак " + sign + " не поддерживается!\n");
         };
-        return result;
-    }
-
-    // печать результата
-    public static void printResult(int a, char sign, int b, double result) {
-        System.out.print(a + " " + sign + " " + b + " = ");
-        System.out.printf((result % 1 > 0) ? ("%.3f%n") : ("%.0f%n"), result);
-        System.out.println();
     }
 
     private static int defineArgument(String argument) throws NegativeNumber {
