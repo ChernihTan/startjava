@@ -1,56 +1,44 @@
--- 1. РІС‹РІРѕРґ РІ С‚РµРєСЃС‚РѕРІС‹Р№ С„Р°Р№Р» protokol.txt
-\o protokol.txt
---out protokol.txt
-\qecho 1. output to a text file protokol.txt
-\qecho out protokol.txt
+--     1. вывод в текстовый файл log_init_db.txt
+\o log_init_db.txt
+\qecho 1. вывод в текстовый файл
 
--- 2. РїРµСЂРµРєР»СЋС‡РµРЅРёРµ РЅР° РєРѕРґРёСЂРѕРІРєСѓ windows1251
-\qecho 2. witching to windows1251 encoding
+--     2. переключение на кодировку windows1251
+\qecho 2. переключение на кодировку windows1251
 \! chcp 1251
+set client_encoding='win1251';
 
--- 3. РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р” robots
-\qecho 3. connecting to the database robots
+--     3. подключение к БД robots
+\qecho 3. подключение к БД robots
 \c robots
-\qecho
 
---  РёРЅС„РѕСЂРјР°С†РёСЏ РїРѕ РІСЃРµР№ Р‘Р” robots
---\d
--- РёРЅС„РѕСЂРјР°С†РёСЏ РїРѕ РєРѕРЅРєСЂРµС‚РЅРѕР№ С‚Р°Р±Р»РёС†С‹ Р‘Р” robots
---\d jaegers
 
--- 4. СѓРґР°Р»РµРЅРёРµ С‚Р°Р±Р»РёС†С‹
-\qecho 4. deleting a table
-\qecho DROP TABLE Jaegers;
+--     4. Удаление таблицы
+\qecho 4. Удаление таблицы
+\c robots
 DROP TABLE Jaegers;
-\qecho
 
--- 5. СЃРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
-\qecho 4. creation of a table
-\qecho CREATE TABLE Jaegers (
-\qecho id		SERIAL PRIMARY KEY,
-\qecho model_name	TEXT,
-\qecho mark		CHAR(7),
-\qecho height	REAL,
-\qecho weight	REAL,
-\qecho status	TEXT,
-\qecho origin 	TEXT,
-\qecho launch 	DATE,
-\qecho kaiju_kill INTEGER);
-
+--     5. Создание таблицы Jaegers
+\qecho 5. Создание таблицы Jaegers
 CREATE TABLE Jaegers (
-	id		SERIAL PRIMARY KEY,
-	model_name	TEXT,
-	mark		CHAR(7),
-	height	REAL,
-	weight	REAL,
-	status	TEXT,
-	origin 	TEXT,
-	launch 	DATE,
-	kaiju_kill INTEGER)
-;
--- 5. Р—Р°РїРѕР»РЅРµРЅРёРµ С‚Р°Р±Р»РёС†С‹, Р·Р°РїРѕР»РЅРµРЅРЅРѕР№ РІ РєРѕРґРёСЂРѕРІРєРµ WIN1251
-\qecho 5. Filling in the table in code WIN1251
+    PRIMARY KEY (id),
+	id          SERIAL,
+	model_name  TEXT,
+	mark        CHAR(7),
+	height      REAL,
+	weight      REAL,
+	status      TEXT,
+	origin      TEXT,
+	launch      DATE,
+	kaiju_kill  INTEGER
+);
+
+--     6. Заполнение таблицы, заполненной в кодировке WIN-1251
+\qecho 6. Заполнение таблицы, заполненной в кодировке WIN-1251
 \i populate.sql
 
-\qecho 6. ------------Query execution ---------------------
+--     7. Выполнение запросов
+\qecho 7.  Выполнение запросов
 \i queries.sql
+
+--8. Вывод в консоль
+\o
