@@ -52,16 +52,16 @@ SELECT model_name, mark, launch, kaiju_kill
 SELECT ROUND(AVG(weight),3) AS avg_weight
   FROM Jaegers;
 
-\qecho вариант второй
-SELECT CAST(AVG(weight) AS DECIMAL(15,3)) AS avg2_weight
-  FROM Jaegers;
+--\qecho вариант второй
+--SELECT CAST(AVG(weight) AS DECIMAL(15,3)) AS avg2_weight
+--  FROM Jaegers;
 
 \qecho 8. Увеличение на единицу количество уничтоженных kaiju у неразрушенных роботов,
 \qecho а затем отображение таблицы
 
 UPDATE Jaegers
    SET kaiju_kill = kaiju_kill + 1
- WHERE status = '';
+ WHERE status = 'Не разрушен';
 
 SELECT *
   FROM Jaegers
