@@ -7,20 +7,17 @@ public class Calculator {
     private static char sign;
     // метод отвечает за проверку математического знака и сами вычисления
 
-    public static double calculate(String expression) throws NumberFormatException {
-        a = 0;
-        b = 0;
-        sign = ' ';
+    public static double calculate(String expression) {
+
         // Разбор выражения, предварительно убираю лишние пробелы
         String[] args = expression.strip().split("\s+");
-        int length = args.length;
 
-        if (length != ARGS_LIMIT) {
-            throw new UnspacedExpression("Ошибка: выражение введено без пробелов!\n");
+        if (args.length != ARGS_LIMIT) {
+            throw new UnspacedExpression("Ошибка: должно быть 3 аргумента, разделенных пробелами!\n");
         }
 
-        a = defineArgument(args[0]);
-        b = defineArgument(args[2]);
+        a = checkArg(args[0]);
+        b = checkArg(args[2]);
         sign = args[1].charAt(0);
 
         // проверка на 0 второго аргумента, если операция деления
@@ -35,15 +32,20 @@ public class Calculator {
             case '*' -> a * b;
             case '/' -> (double) a / b;
             case '^' -> Math.pow(a, b);
-            case '%' -> (double) a % b;
+            case '%' -> a % b;
             default -> throw new SignException("Ошибка: знак " + sign + " не поддерживается!\n");
         };
     }
 
-    private static int defineArgument(String argument) throws NegativeNumber {
-        int number = java.lang.Integer.parseInt(argument);
+    private static int checkArg(String argument) {
+        int number = 0;
+        try {
+            number = java.lang.Integer.parseInt(argument);
+        } catch (NumberFormatException e) {
+
+        }
         if (number < 0) {
-            throw new NegativeNumber("Введено отрицательное число!\n");
+            throw new NegativeNumberException("Введено отрицательное число!\n");
         }
         return number;
     }

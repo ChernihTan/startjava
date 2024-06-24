@@ -307,8 +307,8 @@ public class ArraysTheme {
 
     private static void typewriter(String text) throws InterruptedException {
         // можно перечислить несколько разделителей, разделенных в свою очередь символом |
-        String[] words = text.split(" |\\,|\\.|\\\n|\\:|\\-");
-        // String[] words = text.split("\\p{P}");   // text.split(" |\\,|\\.|\\\n|\\:|\\-");
+        // String[] words = text.split(" |\\,|\\.|\\\n|\\:|\\-");
+        String[] words = text.split("\\p{P}|\\p{Z}");
 
         int indexLongWord = 0;
         int indexShortWord = 0;
