@@ -7,9 +7,6 @@ import static java.util.Arrays.*;
 public class Player {
 
     private String name;
-
-
-
     private int[] numbers = new int[10];
     private int attempt = 0;
     private int winsCount = 0;
@@ -38,9 +35,7 @@ public class Player {
     public int[] getNumbers() {
         return numbers;
     }
-    public void setNumbers(int[] numbers) {
-        this.numbers = numbers;
-    }
+
     public int getAttempt() {
         return attempt;
     }

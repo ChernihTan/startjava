@@ -4,21 +4,20 @@ import java.util.Arrays;
 
 public class BookShelf {
     static final int MAX_COUNT_BOOKS = 10;
-    private Book[] books = new Book[MAX_COUNT_BOOKS];
+    private final Book[] books = new Book[MAX_COUNT_BOOKS];
 
     private int countBooks;
 
-    // №1
-    public void add(String author, String title, int yearPublication) throws Exception {
-        // считаю количество книг в шкафу, проверяю,есть ли место
-        // и генерирую новый объект - книга, заполняю данные по книге
+    public void add(Book newBook) throws RuntimeException {
+        // считаю количество занятых полок в шкафу (на каждой полке по одной книге),
+        // проверяю, если количество занятых полок (строк массива) пока не максимально, то
+        // ссылку на переданный объект добавляю в следующую строку массива
         if (countBooks == MAX_COUNT_BOOKS) {
-            throw new Exception("Шкаф заполнен, добавить книгу не могу!\n");
+            throw new RuntimeException("Шкаф заполнен, добавить книгу не могу!\n");
         }
-        books[countBooks++] = new Book(author, title, yearPublication);
+        books[countBooks++] = newBook;
     }
 
-    // №2
     public int findShelfNumber(Book searchedBook) throws RuntimeException {
         for (int i = 0; i < countBooks; i++) {
             // s1.equals(s2)
@@ -29,7 +28,6 @@ public class BookShelf {
         throw new RuntimeException("Такая книга не найдена!\n");
     }
 
-    // №3
     public void delete(int position) throws RuntimeException {
         // сдвигаем данные на место удаленного и все последующие книги
         if (!(position >= 0 && position < MAX_COUNT_BOOKS)) {
@@ -41,40 +39,20 @@ public class BookShelf {
         countBooks--;
     }
 
-//    // №4
-//    public void printBookShelfNew() {
-//        if (countBooks == 0) {
-//            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
-//        } else {
-//            // вывод не пустых полок шкафа
-//            int length = lengthShelf();
-//            String strRepeat = "    |" + "-".repeat(length + 2) + "|";
-//            for (int i = 0; i < countBooks; i++) {
-//                String line = String.format("    | %-" + length + "s |", books[i]);
-//                System.out.println(strRepeat);
-//                System.out.println(line);
-//            }
-//            System.out.println(strRepeat);
-//        }
-//    }
-
-    // №5
     public int getCountBooks() {
         return countBooks;
     }
 
-    // №6 - получить количество свободных полок в шкафу
+    // получить количество свободных полок в шкафу
     public int getEmptyShelves() {
         return MAX_COUNT_BOOKS - countBooks;
     }
-    // №7 - очистить шкаф
 
     public void cleanBookShelf() {
         // чищу, начиная с 0-го элемента все занятые полки
-        Arrays.fill(books, 0,countBooks, null);
+        Arrays.fill(books, 0, countBooks, null);
         countBooks = 0;
     }
-    // №8 - определение длины полки
 
     public int lengthShelf() {
         int max = 0;

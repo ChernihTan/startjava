@@ -6,80 +6,45 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GuessNumber {
-    static final int COUNT_ATTEMPTS_CONSTANT = 10;
-    static final int COUNT_ROUNDS_CONSTANT = 5; // 3;
-    static final int COUNT_PLAYERS_CONSTANT = 3;
+    final int COUNT_ATTEMPTS = 10;
+    final int COUNT_ROUNDS = 5; // 3;
+    final int COUNT_PLAYERS = 3;
 
-    private String namePlayer1;
-    private String namePlayer2;
-    private String namePlayer3;
-    Player[] players = new Player[COUNT_PLAYERS_CONSTANT];
-    int[] namedNumbers = new int[COUNT_ATTEMPTS_CONSTANT * COUNT_PLAYERS_CONSTANT];
+    private Player[] players;
+    int[] namedNumbers = new int[COUNT_ATTEMPTS * COUNT_PLAYERS];
     int currentAttempt = 0;
 
     // конструктор класса
-    public GuessNumber(String namePlayer1, String namePlayer2, String namePlayer3) {
-        this.namePlayer1 = namePlayer1;
-        this.namePlayer2 = namePlayer2;
-        this.namePlayer3 = namePlayer3;
-        // создаю игроков
-        players[0] = new Player(namePlayer1);
-        players[1] = new Player(namePlayer2);
-        players[2] = new Player(namePlayer3);
+    public GuessNumber(Player[] gamers) {
+        this.players = gamers;
     }
 
     // сама игра
     public void start() {
         // Количество раунтов - 3
-        for (int i = 1; i <= COUNT_ROUNDS_CONSTANT; i++) {
+        for (int i = 1; i <= COUNT_ROUNDS; i++) {
             // тасуем игроков перед каждым раундом :
-            // случайный индекс (из 0,1,2) на последнее место, следующий случайный индекс (из 0,1)
-            // на предпоследнее место
-            Player temp;
-            Random rand = new Random();
-            int randomNum;
-            // new Random().nextInt(3);  // [0...2] [min = 0, max = 2]
-            for (int j = players.length - 1; j > 0; j--) {            //
-                randomNum = rand.nextInt(j);
-                temp = players[j];                                    // меняю местами элементы
-                players[j] = players[randomNum];
-                players[randomNum] = temp;
-            }
+            shufflePlayers(players);
+
             System.out.print("Раунд № " + i + " начинают игроки в порядке очереди: ");
             System.out.println(players[0].getName() + ", " + players[1].getName() + " и " +
                     players[2].getName());
 
             // Загадываем число:
+            Random rand = new Random();
             // rand.nextInt(100);  // [0...99] [min = 0, max = 99]
             int guessedNum = rand.nextInt(100) + 1;
             System.out.println(guessedNum);
 
             System.out.println("Игра началась! У каждого игрока по 10 попыток.");
-            Scanner scanner = new Scanner(System.in);
-            int enteredNum = -1;
+            //Scanner scanner = new Scanner(System.in);
+            int enteredNum;
             currentAttempt = 0;
             try {
-                for (int j = 0; j < COUNT_ATTEMPTS_CONSTANT; j++) {
+                for (int j = 0; j < COUNT_ATTEMPTS; j++) {
                     for (int k = 0; k < players.length; k++) {
                         // жду только правильного ввода - yes/no
-                        boolean incorrectInput = true;
-                        do {
-                            try {
-                                System.out.print("Игрок " + players[k].getName() + ": ");
-                                enteredNum = Integer.parseInt(scanner.nextLine()); // scanner.nextInt();
-                                if ((enteredNum > 0) && (enteredNum <= 100)) {
-                                    incorrectInput = false;
-                                } else {
-                                    System.out.println("Вводимое целое число должно между 0 и 100, " +
-                                            "делайте попытку еще");
-                                    // System.out.print("Игрок " + players[k].getName() + "еще раз: ")
-                                }
-                            } catch (NumberFormatException e) {
-                                System.out.println("Несоответствующий формат ввода целого числа, " +
-                                        "делайте попытку еще");
-                                // System.out.print("Игрок " + players[k].getName() + ": ")
-                            }
-                        } while (incorrectInput);
+                        enteredNum = playerInputWithCheck(k, players);
 
                         // сохраняем данные попытки по игроку
                         players[k].setNumber(j, enteredNum);
@@ -103,7 +68,7 @@ public class GuessNumber {
                                     (enteredNum < guessedNum ? " меньше" : " больше") + " загаданного");
                         }
                         // currentAttempt++;
-                        if (j == COUNT_ATTEMPTS_CONSTANT - 1) {
+                        if (j == COUNT_ATTEMPTS - 1) {
                             System.out.println("У " + players[k].getName() + " закончились попытки");
                         }
                     }
@@ -118,6 +83,49 @@ public class GuessNumber {
                 Arrays.fill(namedNumbers, 0, currentAttempt - 1, 0);
             }
         }
+        determineWinner(players);
+    }
+
+    private void shufflePlayers(Player[] players) {
+        // случайный индекс (из 0,1,2) на последнее место, следующий случайный индекс (из 0,1)
+        // на предпоследнее место
+        Player temp;
+        Random rand = new Random();
+        int randomNum;
+        // new Random().nextInt(3);  // [0...2] [min = 0, max = 2]
+        for (int j = players.length - 1; j > 0; j--) {            //
+            randomNum = rand.nextInt(j);
+            temp = players[j];                                    // меняю местами элементы
+            players[j] = players[randomNum];
+            players[randomNum] = temp;
+        }
+    }
+
+    private int playerInputWithCheck(int k, Player[] players) {
+        boolean incorrectInput = true;
+        int enteredNum = -1;
+        Scanner scanner = new Scanner(System.in);
+        do {
+            try {
+                System.out.print("Игрок " + players[k].getName() + ": ");
+                enteredNum = Integer.parseInt(scanner.nextLine()); // scanner.nextInt();
+                if ((enteredNum > 0) && (enteredNum <= 100)) {
+                    incorrectInput = false;
+                } else {
+                    System.out.println("Вводимое целое число должно между 0 и 100, " +
+                            "делайте попытку еще");
+                    // System.out.print("Игрок " + players[k].getName() + "еще раз: ")
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Несоответствующий формат ввода целого числа, " +
+                        "делайте попытку еще");
+                // System.out.print("Игрок " + players[k].getName() + ": ")
+            }
+        } while (incorrectInput);
+        return enteredNum;
+    }
+
+    private void determineWinner(Player[] players) {
         int max = players[0].getWinsCount();
         int min = players[0].getWinsCount();
         for (int i = 1; i < players.length; i++) {
@@ -158,8 +166,8 @@ public class GuessNumber {
             for (int number : numbersToPrint) {
                 System.out.print(number + " ");
             }
-            System.out.println();
         }
+        System.out.println();
     }
 
     public void printAfterRound(int indexWinner) {

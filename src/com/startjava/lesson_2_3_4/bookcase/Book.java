@@ -4,7 +4,7 @@ public class Book {
     private String author;
     private String title;
     private int yearPublication;
-    private int informationLength;
+    //private int informationLength;
 
     public Book(String author, String title, int yearPublication) {
         this.author = author;
@@ -21,33 +21,8 @@ public class Book {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
+     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getYearPublication() {
-        return yearPublication;
-    }
-
-    public void setYearPublication(int yearPublication) {
-        this.yearPublication = yearPublication;
-    }
-
-    public int getInformationLength() {
-        informationLength = author.length() + title.length() + 4;
-        return informationLength;
-    }
-
-    public void setInformationLength() {
-        this.informationLength = author.length() + title.length() + 4;
     }
 
     public String toString() {

@@ -7,12 +7,13 @@ public class BookShelfTest {
     public static void main(String[] args) {
         BookShelf bookcase = new BookShelf();
         try {
-            bookcase.add("Лев Толстой", "Война и мир", 1867);
-            bookcase.add("Льюис Кэрролл", "Алиса в Стране чудес", 1939);
-            bookcase.add("Александр Волков", "Волшебник Изумрудного города", 1867);
-            bookcase.add("Лаймен Фрэнк Баум", "Удивительный волшебник из страны ОЗ", 1900);
-            bookcase.add("Ирвинг Стоун", "Жажда жизни", 1973);
-            bookcase.add("Рэй Бредбери", "451 градус по Фаренгейту", 1980);
+            bookcase.add(new Book("Лев Толстой", "Война и мир", 1867));
+            bookcase.add(new Book("Льюис Кэрролл", "Алиса в Стране чудес", 1939));
+            bookcase.add(new Book("Александр Волков", "Волшебник Изумрудного города", 1867));
+            bookcase.add(new Book("Лаймен Фрэнк Баум", "Удивительный волшебник из страны ОЗ", 1900));
+            bookcase.add(new Book("Ирвинг Стоун", "Жажда жизни", 1973));
+            bookcase.add(new Book("Рэй Бредбери", "451 градус по Фаренгейту", 1980));
+            bookcase.add(new Book("Джек Лондон", "Белый Клык", 1906));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -58,7 +59,7 @@ public class BookShelfTest {
                         }
                     } while (incorrectInput);
                     try {
-                        bookcase.add(author, title, year);
+                        bookcase.add(new Book(author, title, year));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
