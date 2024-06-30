@@ -2,24 +2,28 @@ package com.startjava.lesson_2_3_4.guess;
 
 import java.util.Arrays;
 
-import static java.util.Arrays.*;
-
 public class Player {
 
-    private String name;
-    private int[] numbers = new int[10];
-    private int attempt = 0;
-    private int winsCount = 0;
+    private final String name;
+    private final int[] numbers = new int[GuessNumber.COUNT_ATTEMPTS * GuessNumber.COUNT_ROUNDS];
+    //private int attempt;
+    private int winsCount;
 
-    // конструктор
-    public Player(String name) {
-        this.name = name;
-        winsCount = 0;
-        // очищаю массив с числами - мах. 10 попыток
-        fill(numbers, -1);
+    public int getNumberingAttempts() {
+        return numberingAttempts;
     }
 
-    // геттеры и сеттеры
+    public void setNumberingAttempts(int numberingAttempts) {
+        this.numberingAttempts = numberingAttempts;
+    }
+
+    // Сквозная нумерация всех попыток игрока
+    private int numberingAttempts;
+
+    public Player(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
@@ -28,27 +32,21 @@ public class Player {
         return winsCount;
     }
 
-      public void setNumber(int index, int number) {
-        numbers[index] = number;
+    public void addNumber(int number) {
+        // у меня сквозная через все раунды нумерация попыток,
+        // чтобы отобразить все числа, названные игроком
+        numbers[numberingAttempts++] = number;
     }
 
     public int[] getNumbers() {
-        return numbers;
+        return Arrays.copyOf(numbers, numberingAttempts);
     }
 
-    public int getAttempt() {
-        return attempt;
-    }
-
-    public void setAttempt(int attempt) {
-        this.attempt = attempt;
-    }
-
-    public void addWinsCount() {
+    public void increaseWinsCount() {
         winsCount++;
     }
     public void Clear() {
-        Arrays.fill(numbers, 0,  attempt , 0);
-        setAttempt(0);
+        Arrays.fill(numbers, 0,  numberingAttempts , 0);
+        setNumberingAttempts(0);
     }
 }
