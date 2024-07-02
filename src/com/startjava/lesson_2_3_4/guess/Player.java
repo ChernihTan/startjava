@@ -6,19 +6,20 @@ public class Player {
 
     private final String name;
     private final int[] numbers = new int[GuessNumber.COUNT_ATTEMPTS * GuessNumber.COUNT_ROUNDS];
+
     //private int attempt;
     private int winsCount;
-
-    public int getNumberingAttempts() {
-        return numberingAttempts;
-    }
-
-    public void setNumberingAttempts(int numberingAttempts) {
-        this.numberingAttempts = numberingAttempts;
-    }
-
     // Сквозная нумерация всех попыток игрока
-    private int numberingAttempts;
+    private int attempt;
+
+    public int getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(int attempt) {
+        this.attempt = attempt;
+    }
+
 
     public Player(String name) {
         this.name = name;
@@ -31,22 +32,34 @@ public class Player {
     public int getWinsCount() {
         return winsCount;
     }
+    public void setWinsCount(int winsCount) {
+        this.winsCount = winsCount;
+    }
 
-    public void addNumber(int number) {
-        // у меня сквозная через все раунды нумерация попыток,
-        // чтобы отобразить все числа, названные игроком
-        numbers[numberingAttempts++] = number;
+    public boolean addNumber(int number) {
+        boolean incorrectInput = true;
+        if ((number > 0) && (number <= 100)) {
+            incorrectInput = false;
+            // нумерация попыток сквозная, не зависит от номера раунда
+            numbers[attempt++] = number;
+        } else {
+            System.out.println("Вводимое целое число должно быть в интервале [1:100], " +
+                    "делайте попытку еще");
+        }
+        return incorrectInput;
     }
 
     public int[] getNumbers() {
-        return Arrays.copyOf(numbers, numberingAttempts);
+        return Arrays.copyOf(numbers, attempt);
     }
 
     public void increaseWinsCount() {
         winsCount++;
     }
-    public void Clear() {
-        Arrays.fill(numbers, 0,  numberingAttempts , 0);
-        setNumberingAttempts(0);
+
+    public void clear() {
+        Arrays.fill(numbers, 0, attempt, 0);
+        setAttempt(0);
+        setWinsCount(0);
     }
 }

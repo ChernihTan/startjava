@@ -29,7 +29,7 @@ public class GuessNumber {
     public void start() {
         // чищу данные игроков перед следующей игрой
         for (Player player : players) {
-            player.Clear();
+            player.clear();
         }
         // Чищу общий массив названных чисел всеми игроками (вне задания)
         Arrays.fill(namedNumbers, 0, currentAttempt, 0);
@@ -44,7 +44,6 @@ public class GuessNumber {
             System.out.println("Информация для меня - " + guessedNum);
 
             System.out.println("Игра началась! У каждого игрока по 10 попыток.");
-            //Scanner scanner = new Scanner(System.in);
             int enteredNum = 0;
             try {
                 for (int attempt = 0; attempt < COUNT_ATTEMPTS; attempt++) {
@@ -106,16 +105,12 @@ public class GuessNumber {
 
         // жду только правильного ввода - yes/no
         int enteredNum = playerInputWithCheck(player);
-        // сохраняем названное игроком число в данных игрока
-        player.addNumber(enteredNum);
 
         if (enteredNum == guessedNum) {
             System.out.println("Игрок " + player.getName() + " угадал " + guessedNum +
                     " с " + ++attempt + " попытки");
             // фиксируем выигрыш у победителя раунда
             player.increaseWinsCount();
-            // Печать после окончания очередного раунда по проигравшим игрокам
-            //printAfterRound(k);
             // генерирую исключение
             String text = "Закончился раунд ";
             throw new FinishRoundException(text);
@@ -137,12 +132,8 @@ public class GuessNumber {
             try {
                 System.out.print("Игрок " + player.getName() + ": ");
                 enteredNum = Integer.parseInt(scanner.nextLine()); // scanner.nextInt();
-                if ((enteredNum > 0) && (enteredNum <= 100)) {
-                    incorrectInput = false;
-                } else {
-                    System.out.println("Вводимое целое число должно быть в интервале [1:100], " +
-                            "делайте попытку еще");
-                }
+                // сохраняем названное игроком число в данных игрока
+                incorrectInput = player.addNumber(enteredNum);
             } catch (NumberFormatException e) {
                 System.out.println("Несоответствующий формат ввода целого числа, " +
                         "делайте попытку еще");
@@ -188,7 +179,7 @@ public class GuessNumber {
         // определяю длину общего массива
         int length = 0;
         for (Player player : players) {
-            length += player.getNumberingAttempts();
+            length += player.getAttempt();
         }
         // Создаю массив из названных игроками цифр
         int[] numbersToPrint = new int[length];
@@ -196,7 +187,7 @@ public class GuessNumber {
         int quantity;
         int begin = 0;
         for (Player player : players) {
-            quantity = player.getNumberingAttempts();
+            quantity = player.getAttempt();
             System.arraycopy(player.getNumbers(), 0, numbersToPrint, begin, quantity);
             begin += quantity;
         }

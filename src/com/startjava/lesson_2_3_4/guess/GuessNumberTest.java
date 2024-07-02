@@ -3,6 +3,7 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Scanner;
 
 public class GuessNumberTest {
+    final static int COUNT_PLAYERS = 3;
         public static void main(String[] args) {
         final int COUNT_PLAYERS = 3;
         System.out.println("Начинаем игру \"Угадай число\".");
@@ -26,7 +27,6 @@ public class GuessNumberTest {
 
     }
     public static void inputPlayerNames(Player[] players) {
-        final int COUNT_PLAYERS = 3;
         Scanner scanner = new Scanner(System.in);
         for(int i = 0; i < COUNT_PLAYERS; i++) {
             int j = i + 1;
