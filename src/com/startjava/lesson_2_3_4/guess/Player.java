@@ -3,12 +3,13 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Arrays;
 
 public class Player {
-
+    final int countAttempts = 4;
+    final int countRounds = 3;
     private final String name;
-    private final int[] numbers = new int[GuessNumber.COUNT_ATTEMPTS * GuessNumber.COUNT_ROUNDS];
+    private final int[] numbers = new int[countAttempts * countRounds];
 
-    //private int attempt;
     private int winsCount;
+
     // Сквозная нумерация всех попыток игрока
     private int attempt;
 
@@ -19,7 +20,6 @@ public class Player {
     public void setAttempt(int attempt) {
         this.attempt = attempt;
     }
-
 
     public Player(String name) {
         this.name = name;
@@ -32,6 +32,7 @@ public class Player {
     public int getWinsCount() {
         return winsCount;
     }
+    
     public void setWinsCount(int winsCount) {
         this.winsCount = winsCount;
     }

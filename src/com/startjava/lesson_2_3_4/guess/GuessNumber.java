@@ -7,16 +7,16 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GuessNumber {
-    final static int COUNT_ATTEMPTS = 4;
-    final static int COUNT_ROUNDS = 3;
-    final int COUNT_PLAYERS = 3;
+    final int countAttempts = 4;
+    final int countRounds = 3;
+    final int countPlayers = 3;
 
     private final Player[] players;
     // Если объявляется конечная переменная, позже мы не сможете изменить или присвоить ей значения.
     // В случае объектов и массивов, если ссылочная переменная является окончательной,
     // она не может указывать на другой объект/массив, кроме как ссылаться на массив объектов-игроков
 
-    int[] namedNumbers = new int[COUNT_ATTEMPTS * COUNT_PLAYERS * COUNT_ROUNDS];
+    int[] namedNumbers = new int[countAttempts * countPlayers * countRounds];
     // все попытки за все раунды, сквозная нумерация
     private int currentAttempt;
 
@@ -37,7 +37,7 @@ public class GuessNumber {
         // Количество раунтов - 3
         // тасуем игроков перед началом игры :
         shufflePlayers(players);
-        for (int round = 1; round <= COUNT_ROUNDS; round++) {
+        for (int round = 1; round <= countRounds; round++) {
             System.out.println("\nРаунд - " + round);
             // Загадываем число:
             int guessedNum = guessNumber();
@@ -46,7 +46,7 @@ public class GuessNumber {
             System.out.println("Игра началась! У каждого игрока по 10 попыток.");
             int enteredNum = 0;
             try {
-                for (int attempt = 0; attempt < COUNT_ATTEMPTS; attempt++) {
+                for (int attempt = 0; attempt < countAttempts; attempt++) {
                     for (Player player : players) {
                         enteredNum = processSingleGuess(player, attempt, guessedNum);
                         // фиксируем очередное введенное число (вне задания)
@@ -118,7 +118,7 @@ public class GuessNumber {
             System.out.println("Число " + enteredNum +
                     (enteredNum < guessedNum ? " меньше" : " больше") + " загаданного");
         }
-        if (attempt == COUNT_ATTEMPTS - 1) {
+        if (attempt == countAttempts - 1) {
             System.out.println("У " + player.getName() + " закончились попытки");
         }
         return enteredNum;
@@ -175,7 +175,6 @@ public class GuessNumber {
     }
 
     public void printResultNew(Player[] players) {
-
         // определяю длину общего массива
         int length = 0;
         for (Player player : players) {
