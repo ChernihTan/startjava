@@ -3,23 +3,14 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Arrays;
 
 public class Player {
-    final int countAttempts = 4;
-    final int countRounds = 3;
+    static final int ONE_HUNDRED = 100;
     private final String name;
-    private final int[] numbers = new int[countAttempts * countRounds];
+    private final int[] numbers = new int[GuessNumber.COUNT_ATTEMPTS * GuessNumber.COUNT_ROUNDS];
 
     private int winsCount;
 
     // Сквозная нумерация всех попыток игрока
     private int attempt;
-
-    public int getAttempt() {
-        return attempt;
-    }
-
-    public void setAttempt(int attempt) {
-        this.attempt = attempt;
-    }
 
     public Player(String name) {
         this.name = name;
@@ -29,29 +20,22 @@ public class Player {
         return name;
     }
 
+    public int[] getNumbers() {
+        return Arrays.copyOf(numbers, attempt);
+    }
+
     public int getWinsCount() {
         return winsCount;
     }
-    
-    public void setWinsCount(int winsCount) {
-        this.winsCount = winsCount;
-    }
 
     public boolean addNumber(int number) {
-        boolean incorrectInput = true;
-        if ((number > 0) && (number <= 100)) {
-            incorrectInput = false;
+        if ((number > 0) && (number <= Player.ONE_HUNDRED)) {
             // нумерация попыток сквозная, не зависит от номера раунда
             numbers[attempt++] = number;
+            return true;
         } else {
-            System.out.println("Вводимое целое число должно быть в интервале [1:100], " +
-                    "делайте попытку еще");
+            return false;
         }
-        return incorrectInput;
-    }
-
-    public int[] getNumbers() {
-        return Arrays.copyOf(numbers, attempt);
     }
 
     public void increaseWinsCount() {
@@ -60,7 +44,7 @@ public class Player {
 
     public void clear() {
         Arrays.fill(numbers, 0, attempt, 0);
-        setAttempt(0);
-        setWinsCount(0);
+        attempt = 0;
+        winsCount = 0;
     }
 }

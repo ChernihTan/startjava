@@ -1,24 +1,21 @@
 package com.startjava.lesson_2_3_4.guess;
 
-// import java.util.InputMismatchException;
-
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GuessNumber {
-    final int countAttempts = 4;
-    final int countRounds = 3;
-    final int countPlayers = 3;
+    static final int COUNT_ATTEMPTS = 10;
+    static final int COUNT_ROUNDS = 3;
+    static final int COUNT_PLAYERS = 3;
 
     private final Player[] players;
     // Если объявляется конечная переменная, позже мы не сможете изменить или присвоить ей значения.
     // В случае объектов и массивов, если ссылочная переменная является окончательной,
     // она не может указывать на другой объект/массив, кроме как ссылаться на массив объектов-игроков
 
-    int[] namedNumbers = new int[countAttempts * countPlayers * countRounds];
+    // int[] namedNumbers = new int[COUNT_ATTEMPTS * COUNT_PLAYERS * COUNT_ROUNDS];
     // все попытки за все раунды, сквозная нумерация
-    private int currentAttempt;
+    // private int currentAttempt;
 
     // конструктор класса
     public GuessNumber(Player[] players) {
@@ -31,48 +28,41 @@ public class GuessNumber {
         for (Player player : players) {
             player.clear();
         }
-        // Чищу общий массив названных чисел всеми игроками (вне задания)
-        Arrays.fill(namedNumbers, 0, currentAttempt, 0);
-        currentAttempt = 0;
-        // Количество раунтов - 3
+
         // тасуем игроков перед началом игры :
         shufflePlayers(players);
-        for (int round = 1; round <= countRounds; round++) {
+        for (int round = 1; round <= COUNT_ROUNDS; round++) {
             System.out.println("\nРаунд - " + round);
             // Загадываем число:
             int guessedNum = guessNumber();
             System.out.println("Информация для меня - " + guessedNum);
 
             System.out.println("Игра началась! У каждого игрока по 10 попыток.");
-            int enteredNum = 0;
+            // int enteredNum;
             try {
-                for (int attempt = 0; attempt < countAttempts; attempt++) {
+                for (int attempt = 0; attempt < COUNT_ATTEMPTS; attempt++) {
                     for (Player player : players) {
-                        enteredNum = processSingleGuess(player, attempt, guessedNum);
+                        processSingleGuess(player, attempt, guessedNum);
                         // фиксируем очередное введенное число (вне задания)
-                        namedNumbers[currentAttempt++] = enteredNum;
+                        // namedNumbers[currentAttempt++] = enteredNum;
                     }
                 }
             } catch (FinishRoundException e) {
                 System.out.println(e.getMessage() + round);
-                // фиксируем очередное введенное число (вне задания)
-                namedNumbers[currentAttempt++] = enteredNum;
             }
         }
         determineWinner(players);
-        // выводим все названные числа (вне задания)
-        printResult(currentAttempt, namedNumbers);
-        // Вывожу все, названные игроками числа, сначала от одного игрока, потом от следующего
-        printResultNew(players);
+
         // Вывожу все, названные игроками числа, с выводом имен игроков
-        printResultNew2(players);
+        printResult(players);
     }
 
     private int guessNumber() {
         // Загадываем число:
         Random rand = new Random();
+
         // rand.nextInt(100);  // [0...99] [min = 0, max = 99]
-        return rand.nextInt(100) + 1;
+        return rand.nextInt(Player.ONE_HUNDRED) + 1;
     }
 
     private void shufflePlayers(Player[] players) {
@@ -96,7 +86,7 @@ public class GuessNumber {
         System.out.println(players[length - 1].getName());
     }
 
-    private int processSingleGuess(Player player, int attempt, int guessedNum) throws NumberFormatException {
+    private void processSingleGuess(Player player, int attempt, int guessedNum) throws NumberFormatException {
         // обработка одного хода игрока - одного отгадывания:
         // игрок называет число от 1 до 100 (проверка), сверяем с задуманным,
         // добавляем в массив названных игроком чисел, а если угадал число,
@@ -118,14 +108,13 @@ public class GuessNumber {
             System.out.println("Число " + enteredNum +
                     (enteredNum < guessedNum ? " меньше" : " больше") + " загаданного");
         }
-        if (attempt == countAttempts - 1) {
+        if (attempt == COUNT_ATTEMPTS - 1) {
             System.out.println("У " + player.getName() + " закончились попытки");
         }
-        return enteredNum;
     }
 
     private int playerInputWithCheck(Player player) {
-        boolean incorrectInput = true;
+        boolean correctInput = false;
         int enteredNum = 0;
         Scanner scanner = new Scanner(System.in);
         do {
@@ -133,12 +122,16 @@ public class GuessNumber {
                 System.out.print("Игрок " + player.getName() + ": ");
                 enteredNum = Integer.parseInt(scanner.nextLine()); // scanner.nextInt();
                 // сохраняем названное игроком число в данных игрока
-                incorrectInput = player.addNumber(enteredNum);
+                correctInput = player.addNumber(enteredNum);
+                if (!correctInput) {
+                    System.out.println("Вводимое целое число должно быть в интервале [1:100], " +
+                            "делайте попытку еще");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Несоответствующий формат ввода целого числа, " +
                         "делайте попытку еще");
             }
-        } while (incorrectInput);
+        } while (!correctInput);
         return enteredNum;
     }
 
@@ -165,40 +158,7 @@ public class GuessNumber {
         }
     }
 
-    public void printResult(int attemptCount, int[] numbers) {
-        System.out.println("Все названные числа (вне задания):");
-        int half = (int) Math.ceil((float) attemptCount / 2) - 1;
-        for (int i = 0; i < attemptCount; i++) {
-            System.out.printf((i == half) ? "%2d\n" : "%2d ", numbers[i]);
-        }
-        System.out.println();
-    }
-
-    public void printResultNew(Player[] players) {
-        // определяю длину общего массива
-        int length = 0;
-        for (Player player : players) {
-            length += player.getAttempt();
-        }
-        // Создаю массив из названных игроками цифр
-        int[] numbersToPrint = new int[length];
-        // Заполняю итоговый массиы с названными числами всеми игроками
-        int quantity;
-        int begin = 0;
-        for (Player player : players) {
-            quantity = player.getAttempt();
-            System.arraycopy(player.getNumbers(), 0, numbersToPrint, begin, quantity);
-            begin += quantity;
-        }
-        System.out.println("Все числа, названные игроками:");
-        int half = (int) Math.ceil((float) length / 2) - 1;
-        for (int i = 0; i < length; i++) {
-            System.out.printf((i == half) ? "%2d\n" : "%2d ", numbersToPrint[i]);
-        }
-        System.out.println();
-    }
-
-    public void printResultNew2(Player[] players) {
+    public void printResult(Player[] players) {
         int length;
         for (Player player : players) {
             System.out.print("Числа, названные игроком " + player.getName() + " в ходе игры: \n");
