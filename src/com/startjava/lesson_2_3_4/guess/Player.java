@@ -3,7 +3,8 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Arrays;
 
 public class Player {
-    static final int ONE_HUNDRED = 100;
+    static final int UPPER_RANGE = 101;
+    static final int LOWER_RANGE = 1;
     private final String name;
     private final int[] numbers = new int[GuessNumber.COUNT_ATTEMPTS * GuessNumber.COUNT_ROUNDS];
 
@@ -29,13 +30,13 @@ public class Player {
     }
 
     public boolean addNumber(int number) {
-        if ((number > 0) && (number <= Player.ONE_HUNDRED)) {
+        boolean isValidInput = false;
+        if ((number >= LOWER_RANGE) && (number < UPPER_RANGE)) {
+            isValidInput = true;
             // нумерация попыток сквозная, не зависит от номера раунда
             numbers[attempt++] = number;
-            return true;
-        } else {
-            return false;
         }
+        return isValidInput;
     }
 
     public void increaseWinsCount() {
