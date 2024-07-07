@@ -33,7 +33,6 @@ public class Player {
         boolean isValidInput = false;
         if ((number >= LOWER_RANGE) && (number < UPPER_RANGE)) {
             isValidInput = true;
-            // нумерация попыток сквозная, не зависит от номера раунда
             numbers[attempt++] = number;
         }
         return isValidInput;
