@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class GuessNumberTest {
     private static final String YES = "YES";
     private static final String NO = "NO";
-    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Начинаем игру \"Угадай число\".");
@@ -21,14 +21,14 @@ public class GuessNumberTest {
             } else {
                 System.out.print("Введите корректный ответ [yes/no]: ");
             }
-            answer = SCANNER.next().toUpperCase();
+            answer = scanner.next().toUpperCase();
         } while (!NO.equals(answer));
     }
 
     private static void inputPlayerNames(Player[] players) {
         for (int i = 0; i < GuessNumber.COUNT_PLAYERS; i++) {
             System.out.print("Введите имя игрока под номером " + (i + 1) + ": ");
-            players[i] = new Player(SCANNER.next());
+            players[i] = new Player(scanner.next());
         }
     }
 }
