@@ -41,9 +41,17 @@ public class Player {
         winsCount++;
     }
 
+    public int getAttempt() {
+        return attempt;
+    }
+
     public void clear() {
         Arrays.fill(numbers, 0, attempt, 0);
         attempt = 0;
         winsCount = 0;
+    }
+
+    public String toString() {
+        return name + ": " + winsCount;
     }
 }

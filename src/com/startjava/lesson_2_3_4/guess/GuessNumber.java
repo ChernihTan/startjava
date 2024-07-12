@@ -1,5 +1,7 @@
 package com.startjava.lesson_2_3_4.guess;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -34,7 +36,7 @@ public class GuessNumber {
             boolean isGuessedNumber = false;
             for (int attempt = 0; attempt < COUNT_ATTEMPTS; attempt++) {
                 for (Player player : players) {
-                    if (isGuessed(player, attempt, guessedNumber)) {
+                    if (isGuessed(player, guessedNumber)) {
                         isGuessedNumber = true;
                         break;
                     }
@@ -48,7 +50,7 @@ public class GuessNumber {
         printNumbersNamedPlayers();
     }
 
-    // очистка данных игроков перед следующей игрой
+    // очистка данных игроков перед началом игры
     private void clearDataPlayers() {
         for (Player player : players) {
             player.clear();
@@ -85,8 +87,9 @@ public class GuessNumber {
     // добавление в массив названных игроком чисел, а если угадал число,
     // добавление к количеству побед в раундах и
     // возвращение true, если на данном ходе отгадано число
-    private boolean isGuessed(Player player, int attempt, int guessedNumber) {
+    private boolean isGuessed(Player player, int guessedNumber) {
         int enteredNumber = inputNumber(player);
+        int attempt = player.getAttempt() - 1;
 
         if (enteredNumber == guessedNumber) {
             System.out.println("Игрок " + player.getName() + " угадал " + guessedNumber +
@@ -96,16 +99,8 @@ public class GuessNumber {
             player.increaseWinsCount();
             return true;
         }
-        checkNumberPlayer(player, attempt, guessedNumber, enteredNumber);
+        checkNumberPlayer(player, guessedNumber);
         return false;
-    }
-
-    private void checkNumberPlayer(Player player, int attempt, int guessedNumber, int enteredNumber) {
-        System.out.println("Число " + enteredNumber +
-                (enteredNumber < guessedNumber ? " меньше" : " больше") + " загаданного");
-        if (attempt == COUNT_ATTEMPTS - 1) {
-            System.out.println("У " + player.getName() + " закончились попытки");
-        }
     }
 
     private int inputNumber(Player player) {
@@ -131,23 +126,49 @@ public class GuessNumber {
         return enteredNumber;
     }
 
-    private void determineWinner() {
-        int max = players[0].getWinsCount();
-        int min = players[0].getWinsCount();
-        for (int i = 1; i < players.length; i++) {
-            max = Math.max(players[i].getWinsCount(), max);
-            min = Math.min(players[i].getWinsCount(), min);
+    private void checkNumberPlayer(Player player, int guessedNumber) {
+        int attempt = player.getAttempt() - 1;
+        int[] numbers = player.getNumbers();
+        int enteredNumber = numbers[attempt];
+        System.out.println("Число " + enteredNumber +
+                (enteredNumber < guessedNumber ? " меньше" : " больше") + " загаданного");
+
+        if (++attempt == COUNT_ATTEMPTS - 1) {
+            System.out.println("У " + player.getName() + " закончились попытки");
         }
-        if (max == min) {
+    }
+
+    private void determineWinner() {
+        // Максим, варианты сортировок пока оставлю
+        System.out.println("До сортировки");
+        System.out.println(Arrays.toString(players));
+
+        System.out.println("После сортировки по возрастанию победных очков");
+        Arrays.sort(players, Comparator.comparing(Player::getWinsCount)); // Сортировка по победным очкам
+        System.out.println(Arrays.toString(players));
+
+        System.out.println("После сортировки в порядке убывания победных очков");
+        Arrays.sort(players, Comparator.comparing(Player::getWinsCount).reversed());
+        System.out.println(Arrays.toString(players));
+
+        // Если первый в списке имеет столько же побед, сколько последний - победила дружба
+        // Если первый имеет больше побед, чем второй - победил первый
+        // Если первый имеет столько же побед, сколько второй, третий и до тех пор,
+        // пока у других игроков столько же, сколько у первого - это все победители
+
+        if (players[0].getWinsCount() == players[players.length - 1].getWinsCount()) {
             System.out.println("Победила дружба!");
+        } else if (players[0].getWinsCount() > players[1].getWinsCount()) {
+            System.out.println("Победил " + players[0].getName());
         } else {
-            int winnerCount = 0;
-            for (Player player : players) {
-                if (player.getWinsCount() == max) {
-                    winnerCount++;
-                    System.out.println(winnerCount > 1 ? ",и победил " : "Победил " + player.getName());
-                }
+            // эта ветка, если игроков больше 3
+            System.out.print("Победили: " + players[0].getName());
+            int i = 1;
+            while (players[i].getWinsCount() == players[0].getWinsCount()) {
+                System.out.print(", " + players[i].getName());
+                i++;
             }
+            System.out.println(0);
         }
     }
 

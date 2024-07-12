@@ -8,9 +8,8 @@ public class Calculator {
     // метод отвечает за проверку математического знака и сами вычисления
 
     public static double calculate(String expression) {
-
         // Разбор выражения, предварительно убираю лишние пробелы
-        String[] args = expression.strip().split("\s+");
+        String[] args = expression.strip().split("\\s+");
 
         if (args.length != ARGS_LIMIT) {
             throw new UnspacedExpression("Ошибка: должно быть 3 аргумента, разделенных пробелами!\n");
@@ -38,12 +37,7 @@ public class Calculator {
     }
 
     private static int checkArg(String argument) {
-        int number = 0;
-        try {
-            number = java.lang.Integer.parseInt(argument);
-        } catch (NumberFormatException e) {
-
-        }
+        int number = java.lang.Integer.parseInt(argument);
         if (number < 0) {
             throw new NegativeNumberException("Введено отрицательное число!\n");
         }

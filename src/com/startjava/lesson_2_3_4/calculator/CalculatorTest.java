@@ -3,31 +3,48 @@ package com.startjava.lesson_2_3_4.calculator;
 import java.util.Scanner;
 
 public class CalculatorTest {
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) throws SignException {
-        Scanner scanner = new Scanner(System.in);
-        String answer = "YES";
+        String answer;
         String mathExpression;
         double result;
-
+        // Возможны 4 варианта ввода от пользователя, в зависимости от вопроса:
+        // 1. Введите математическое выражение
+        // 2. Повторите ввод математического выражения
+        // 3. Хотите продолжить вычисления? [yes/no]
+        // 4. Введите корректный ответ [yes/no]
+        int variantQuestion = 1;
         do {
-            if ("YES".equals(answer)) {
-                System.out.print("\nВведите математическое выражение: ");
-                mathExpression = scanner.nextLine();
+            switch (variantQuestion) {
+                case 1 -> System.out.print("\nВведите математическое выражение: ");
+                case 2 -> System.out.print("\nПовторите ввод математического выражения: ");
+                case 3 -> System.out.print("\nХотите продолжить вычисления? [yes/no]: ");
+                case 4 -> System.out.print("Введите корректный ответ [yes/no]: ");
+                default -> System.out.print("Неучтенная ошибка! ");
+            }
+            answer = scanner.nextLine().toUpperCase();
+            if (variantQuestion == 1 || variantQuestion == 2) {
+                mathExpression = answer;
                 try {
                     result = Calculator.calculate(mathExpression);
                     printResult(Calculator.getA(), Calculator.getSign(), Calculator.getB(), result);
+                    variantQuestion = 3;
                 } catch (NumberFormatException e) {
                     System.out.println("Ошибка: неверный формат целого числа\n");
-//                } catch (ArrayIndexOutOfBoundsException e) {
-//                    System.out.println("Длинное выражение, должно быть два числа и между ними " +
-//                            "знак математической операции, разделенные пробелом.\n");
+                    variantQuestion = 2;
                 } catch (NegativeNumberException | ArithmeticException | SignException |
                          UnspacedExpression e) {
                     System.out.println(e.getMessage());
+                    variantQuestion = 2;
+                }
+            } else {
+                if ("YES".equals(answer)) {
+                    variantQuestion = 1;
+                } else {
+                    variantQuestion = 4;
                 }
             }
-            System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-            answer = scanner.nextLine().toUpperCase();
         } while (!"NO".equals(answer));
         System.out.println("Программа завершена");
     }
