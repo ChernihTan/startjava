@@ -95,11 +95,12 @@ public class GuessNumber {
             System.out.println("Игрок " + player.getName() + " угадал " + guessedNumber +
                     " с " + ++attempt + " попытки");
 
-            // фиксируем выигрыш у победителя раунда
+            // фиксация выигрыша у победителя раунда
             player.increaseWinsCount();
             return true;
         }
         checkNumberPlayer(player, guessedNumber);
+        checkAttemptPlayer(player);
         return false;
     }
 
@@ -111,7 +112,7 @@ public class GuessNumber {
                 System.out.print("Игрок " + player.getName() + ": ");
                 enteredNumber = Integer.parseInt(scanner.nextLine());
 
-                // сохраняем названное игроком число в данных игрока
+                // сохранение числа, названное игроком, в данных игрока
                 correctInput = player.addNumber(enteredNumber);
                 if (!correctInput) {
                     System.out.println("Вводимое целое число должно быть в интервале [" +
@@ -127,44 +128,42 @@ public class GuessNumber {
     }
 
     private void checkNumberPlayer(Player player, int guessedNumber) {
-        int attempt = player.getAttempt() - 1;
-        int[] numbers = player.getNumbers();
-        int enteredNumber = numbers[attempt];
+        int enteredNumber = player.lastNumber();
         System.out.println("Число " + enteredNumber +
                 (enteredNumber < guessedNumber ? " меньше" : " больше") + " загаданного");
+    }
 
-        if (++attempt == COUNT_ATTEMPTS - 1) {
+    private void checkAttemptPlayer(Player player) {
+        int attempt = player.getAttempt();
+        if (attempt == COUNT_ATTEMPTS - 1) {
             System.out.println("У " + player.getName() + " закончились попытки");
         }
     }
 
     private void determineWinner() {
-        // Максим, варианты сортировок пока оставлю
-        System.out.println("До сортировки");
-        System.out.println(Arrays.toString(players));
-
-        System.out.println("После сортировки по возрастанию победных очков");
-        Arrays.sort(players, Comparator.comparing(Player::getWinsCount)); // Сортировка по победным очкам
-        System.out.println(Arrays.toString(players));
-
         System.out.println("После сортировки в порядке убывания победных очков");
         Arrays.sort(players, Comparator.comparing(Player::getWinsCount).reversed());
         System.out.println(Arrays.toString(players));
 
+        // Если первый в списке иммет 0 побед, то никто не победил
         // Если первый в списке имеет столько же побед, сколько последний - победила дружба
         // Если первый имеет больше побед, чем второй - победил первый
         // Если первый имеет столько же побед, сколько второй, третий и до тех пор,
         // пока у других игроков столько же, сколько у первого - это все победители
 
-        if (players[0].getWinsCount() == players[players.length - 1].getWinsCount()) {
+        int winsFirstInList = players[0].getWinsCount();
+
+        if (winsFirstInList == 0) {
+            System.out.println("Никто не победил!");
+        } else if (winsFirstInList == players[players.length - 1].getWinsCount()) {
             System.out.println("Победила дружба!");
-        } else if (players[0].getWinsCount() > players[1].getWinsCount()) {
+        } else if (winsFirstInList > players[1].getWinsCount()) {
             System.out.println("Победил " + players[0].getName());
         } else {
             // эта ветка, если игроков больше 3
             System.out.print("Победили: " + players[0].getName());
             int i = 1;
-            while (players[i].getWinsCount() == players[0].getWinsCount()) {
+            while (players[i].getWinsCount() == winsFirstInList) {
                 System.out.print(", " + players[i].getName());
                 i++;
             }
@@ -173,7 +172,7 @@ public class GuessNumber {
     }
 
     // Вывод всех названных игроками чисел, с выводом имен игроков
-    public void printNumbersNamedPlayers() {
+    private void printNumbersNamedPlayers() {
         int length;
         for (Player player : players) {
             System.out.print("Числа, названные игроком " + player.getName() + " в ходе игры: \n");

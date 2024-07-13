@@ -54,4 +54,8 @@ public class Player {
     public String toString() {
         return name + ": " + winsCount;
     }
+
+    public int lastNumber() {
+        return numbers[attempt - 1];
+    }
 }

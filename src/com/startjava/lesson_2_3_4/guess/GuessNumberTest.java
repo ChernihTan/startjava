@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class GuessNumberTest {
     private static final String YES = "YES";
     private static final String NO = "NO";
-    private static final Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Начинаем игру \"Угадай число\".");
@@ -17,7 +17,7 @@ public class GuessNumberTest {
         do {
             if (YES.equals(answer)) {
                 game.start();
-                System.out.print("\nХотите продолжить вычисления? [yes/no]: ");
+                System.out.print("\nХотите продолжить игру? [yes/no]: ");
             } else {
                 System.out.print("Введите корректный ответ [yes/no]: ");
             }
