@@ -25,6 +25,10 @@ public class Player {
         return Arrays.copyOf(numbers, attempt);
     }
 
+    public int getLastNumber() {
+        return numbers[attempt - 1];
+    }
+
     public boolean addNumber(int number) {
         if ((number >= LOWER_RANGE) && (number <= UPPER_RANGE)) {
             numbers[attempt++] = number;
@@ -53,9 +57,5 @@ public class Player {
 
     public String toString() {
         return name + ": " + winsCount;
-    }
-
-    public int lastNumber() {
-        return numbers[attempt - 1];
     }
 }

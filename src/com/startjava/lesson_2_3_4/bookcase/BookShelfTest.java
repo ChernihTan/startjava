@@ -21,7 +21,7 @@ public class BookShelfTest {
         boolean incorrectInput;
         int menuItem;
         do {
-            // ввожу правильный пункт меню
+            // ожидание правильного пункта меню
             try {
                 menuItem = showMenu();
             } catch (RuntimeException e) {
@@ -70,29 +70,29 @@ public class BookShelfTest {
                     author = scanner.nextLine();
                     System.out.print("Ведите название книги: ");
                     title = scanner.nextLine();
-                    Book book_for_delete = new Book(author, title);
+                    Book bookForDelete = new Book(author, title);
                     try {
-                        int place = bookcase.findShelfNumber(book_for_delete);
+                        int place = bookcase.findShelfNumber(bookForDelete);
                         bookcase.delete(place);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                 }
                 case 3 ->
-                    // п. меню - очистить шкаф
-                    bookcase.cleanBookShelf();
+                        // п. меню - очистить шкаф
+                        bookcase.cleanBookShelf();
 
                 case 4 -> {
                     // п. меню - посмотреть содержимое шкафа
-                    // ничего не делаю, просто разрешенный пункт меню,
+                    // просто разрешенный пункт меню,
                     // по зваершении пункта всегда показываю содержимое шкафа
                 }
                 case 5 -> {
-                    // ничего не делаю, просто разрешенный пункт меню
+                    // просто разрешенный пункт меню
                 }
                 default -> System.out.println("Нужно ввести целое число от 1 до 5, делайте попытку еще раз.");
             }
-            if(menuItem != 5) {
+            if (menuItem != 5) {
                 currentStatus(bookcase);
                 printBookShelfNew(bookcase);
                 System.out.println("Для продолжения нажмите Enter");
@@ -113,8 +113,7 @@ public class BookShelfTest {
                     |-------------------------------------------------|-----------|
                     |   Создать   |  Удалить  | Очистить | Содержимое | Завершить |
                     | новую книгу |  книгу    |  шкаф    |    шкафа   |   работу  |
-                    |-------------------------------------------------------------|  
-                """);
+                    |-------------------------------------------------------------|""");
         System.out.print("Введите пункт меню: ");
         option = Integer.parseInt(keyboard.nextLine());
         return option;
@@ -127,6 +126,7 @@ public class BookShelfTest {
                     bookShelf.getEmptyShelves());
         }
     }
+
     public static void printBookShelfNew(BookShelf bookcase) {
         if (bookcase.getCountBooks() == 0) {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
@@ -135,7 +135,7 @@ public class BookShelfTest {
             int length = bookcase.lengthShelf();
             String strRepeat = "    |" + "-".repeat(length + 2) + "|";
             for (int i = 0; i < bookcase.getCountBooks(); i++) {
-                String line = String.format("    | %-" + length + "s |",  bookcase.getBooks()[i]);
+                String line = String.format("    | %-" + length + "s |", bookcase.getBooks()[i]);
                 System.out.println(strRepeat);
                 System.out.println(line);
             }

@@ -9,9 +9,9 @@ public class BookShelf {
     private int countBooks;
 
     public void add(Book newBook) throws RuntimeException {
-        // считаю количество занятых полок в шкафу (на каждой полке по одной книге),
-        // проверяю, если количество занятых полок (строк массива) пока не максимально, то
-        // ссылку на переданный объект добавляю в следующую строку массива
+        // подсчет количества занятых полок в шкафу (на каждой полке по одной книге),
+        // проверка, если количество занятых полок (строк массива) пока не максимально, то
+        // ссылка на переданный объект добавляется в следующую строку массива
         if (countBooks == MAX_COUNT_BOOKS) {
             throw new RuntimeException("Шкаф заполнен, добавить книгу не могу!\n");
         }
@@ -21,7 +21,8 @@ public class BookShelf {
     public int findShelfNumber(Book searchedBook) throws RuntimeException {
         for (int i = 0; i < countBooks; i++) {
             // s1.equals(s2)
-            if (books[i].getAuthor().equals(searchedBook.getAuthor()) && books[i].getTitle().equals(searchedBook.getTitle())) {
+            if (books[i].getAuthor().equals(searchedBook.getAuthor()) &&
+                    books[i].getTitle().equals(searchedBook.getTitle())) {
                 return i;
             }
         }
@@ -43,13 +44,13 @@ public class BookShelf {
         return countBooks;
     }
 
-    // получить количество свободных полок в шкафу
+    // получение количество свободных полок в шкафу
     public int getEmptyShelves() {
         return MAX_COUNT_BOOKS - countBooks;
     }
 
     public void cleanBookShelf() {
-        // чищу, начиная с 0-го элемента все занятые полки
+        // очистка, начиная с 0-го элемента всех занятых полок
         Arrays.fill(books, 0, countBooks, null);
         countBooks = 0;
     }

@@ -1,10 +1,9 @@
 package com.startjava.lesson_2_3_4.bookcase;
 
 public class Book {
-    private String author;
-    private String title;
+    private final String author;
+    private final String title;
     private int yearPublication;
-    //private int informationLength;
 
     public Book(String author, String title, int yearPublication) {
         this.author = author;
@@ -21,7 +20,7 @@ public class Book {
         return author;
     }
 
-     public String getTitle() {
+    public String getTitle() {
         return title;
     }
 

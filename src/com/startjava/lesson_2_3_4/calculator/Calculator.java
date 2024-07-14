@@ -1,7 +1,7 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
-    private static final int ARGUMENTS_LIMIT = 3;
+    private static final int ARGS_LIMIT = 3;
     private static int a;
     private static int b;
     private static char sign;
@@ -19,30 +19,8 @@ public class Calculator {
     }
 
     // метод отвечает за проверку математического знака и сами вычисления
-    public static double calculate() {
-        String expression;
-        double calculationResult = 0;
-        boolean isRightExpression = false;
-        do {
-            try {
-                System.out.print("\nВведите верное математическое выражение: ");
-                expression = CalculatorTest.scanner.nextLine();
-                calculationResult = executionExpression(expression);
-                isRightExpression = true;
-            } catch (NumberFormatException e) {
-                System.out.println("Ошибка: неверный формат целого числа\n");
-            } catch (NegativeNumberException | ArithmeticException | SignException |
-                     UnspacedExpression e) {
-                System.out.println(e.getMessage());
-            }
-        } while (!isRightExpression);
-        return calculationResult;
-    }
-
-    private static double executionExpression(String expression) {
-        // Избавление от лишних пробелов
-        String[] arguments = expression.strip().split("\\s+");
-        checkExpression(arguments);
+    public static double calculate(String expression) {
+        detectionElementExpressionWithCheck(expression);
 
         // Выполнение операции (+, -, *, /, ^, %)
         return switch (sign) {
@@ -60,17 +38,19 @@ public class Calculator {
         };
     }
 
-    private static void checkExpression(String[] arguments) {
-        if (arguments.length != ARGUMENTS_LIMIT) {
+    private static void detectionElementExpressionWithCheck(String expression) {
+        // Избавление от лишних пробелов
+        String[] args = expression.strip().split("\\s+");
+        if (args.length != ARGS_LIMIT) {
             throw new UnspacedExpression("Ошибка: должно быть 3 аргумента, разделенных пробелами!\n");
         }
-        a = checkArgument(arguments[0]);
-        b = checkArgument(arguments[2]);
-        sign = arguments[1].charAt(0);
+        a = checkNumbers(args[0]);
+        b = checkNumbers(args[2]);
+        sign = args[1].charAt(0);
     }
 
-    private static int checkArgument(String argument) {
-        int number = Integer.parseInt(argument);
+    private static int checkNumbers(String arg) {
+        int number = Integer.parseInt(arg);
         if (number < 0) {
             throw new NegativeNumberException("Введено отрицательное число!\n");
         }

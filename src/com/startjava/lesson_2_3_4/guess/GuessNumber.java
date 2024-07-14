@@ -128,7 +128,7 @@ public class GuessNumber {
     }
 
     private void checkNumberPlayer(Player player, int guessedNumber) {
-        int enteredNumber = player.lastNumber();
+        int enteredNumber = player.getLastNumber();
         System.out.println("Число " + enteredNumber +
                 (enteredNumber < guessedNumber ? " меньше" : " больше") + " загаданного");
     }

@@ -9,18 +9,27 @@ public class CalculatorTest {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        String expression;
         String answer = YES;
-        double result;
-
         do {
             if (YES.equals(answer)) {
-                result = Calculator.calculate();
-                printResult(Calculator.getA(), Calculator.getSign(), Calculator.getB(), result);
-                System.out.print("\nХотите продолжить вычисления? [yes/no]: ");
+                System.out.print("\nВведите математическое выражение: ");
+                expression = scanner.nextLine();
+                try {
+                    double result = Calculator.calculate(expression);
+                    printResult(Calculator.getA(), Calculator.getSign(), Calculator.getB(), result);
+                    System.out.print("\nХотите продолжить вычисления? [yes/no]: ");
+                    answer = scanner.nextLine().toUpperCase();
+                } catch (NegativeNumberException | ArithmeticException | SignException |
+                         UnspacedExpression e) {
+                    System.out.println(e.getMessage());
+                } catch (NumberFormatException e) {
+                    System.out.println("Ошибка: неверный формат целого числа\n");
+                }
             } else {
                 System.out.print("Введите корректный ответ [yes/no]: ");
+                answer = scanner.nextLine().toUpperCase();
             }
-            answer = scanner.next().toUpperCase();
         } while (!NO.equals(answer));
         System.out.println("Программа завершена");
     }
