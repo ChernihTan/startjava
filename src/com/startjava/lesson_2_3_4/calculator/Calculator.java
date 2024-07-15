@@ -20,7 +20,7 @@ public class Calculator {
 
     // метод отвечает за проверку математического знака и сами вычисления
     public static double calculate(String expression) {
-        detectionElementExpressionWithCheck(expression);
+        parseExpression(expression);
 
         // Выполнение операции (+, -, *, /, ^, %)
         return switch (sign) {
@@ -38,18 +38,18 @@ public class Calculator {
         };
     }
 
-    private static void detectionElementExpressionWithCheck(String expression) {
+    private static void parseExpression(String expression) {
         // Избавление от лишних пробелов
         String[] args = expression.strip().split("\\s+");
         if (args.length != ARGS_LIMIT) {
             throw new UnspacedExpression("Ошибка: должно быть 3 аргумента, разделенных пробелами!\n");
         }
-        a = checkNumbers(args[0]);
-        b = checkNumbers(args[2]);
+        a = checkNaturalNumber(args[0]);
+        b = checkNaturalNumber(args[2]);
         sign = args[1].charAt(0);
     }
 
-    private static int checkNumbers(String arg) {
+    private static int checkNaturalNumber(String arg) {
         int number = Integer.parseInt(arg);
         if (number < 0) {
             throw new NegativeNumberException("Введено отрицательное число!\n");

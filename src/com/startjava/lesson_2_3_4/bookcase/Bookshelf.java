@@ -2,13 +2,21 @@ package com.startjava.lesson_2_3_4.bookcase;
 
 import java.util.Arrays;
 
-public class BookShelf {
-    static final int MAX_COUNT_BOOKS = 10;
+public class Bookshelf {
+    private static final int MAX_COUNT_BOOKS = 10;
     private final Book[] books = new Book[MAX_COUNT_BOOKS];
 
     private int countBooks;
 
-    public void add(Book newBook) throws RuntimeException {
+    public Book[] getBooks() {
+        return Arrays.copyOf(books, countBooks);
+    }
+
+    public int getCountBooks() {
+        return countBooks;
+    }
+
+    public void add(Book newBook) {
         // подсчет количества занятых полок в шкафу (на каждой полке по одной книге),
         // проверка, если количество занятых полок (строк массива) пока не максимально, то
         // ссылка на переданный объект добавляется в следующую строку массива
@@ -18,18 +26,18 @@ public class BookShelf {
         books[countBooks++] = newBook;
     }
 
-    public int findShelfNumber(Book searchedBook) throws RuntimeException {
+    public int findShelfNumber(Book searchedBook) {
         for (int i = 0; i < countBooks; i++) {
             // s1.equals(s2)
-            if (books[i].getAuthor().equals(searchedBook.getAuthor()) &&
-                    books[i].getTitle().equals(searchedBook.getTitle())) {
+            if (books[i].equalsAuthor(searchedBook.getAuthor()) &&
+                    books[i].equalsTitle(searchedBook.getTitle())) {
                 return i;
             }
         }
         throw new RuntimeException("Такая книга не найдена!\n");
     }
 
-    public void delete(int position) throws RuntimeException {
+    public void delete(int position) {
         // сдвигаем данные на место удаленного и все последующие книги
         if (!(position >= 0 && position < MAX_COUNT_BOOKS)) {
             throw new RuntimeException("Ошибка в номере полки!\n");
@@ -40,12 +48,8 @@ public class BookShelf {
         countBooks--;
     }
 
-    public int getCountBooks() {
-        return countBooks;
-    }
-
     // получение количество свободных полок в шкафу
-    public int getEmptyShelves() {
+    public int countingEmptyShelves() {
         return MAX_COUNT_BOOKS - countBooks;
     }
 
@@ -64,12 +68,6 @@ public class BookShelf {
             }
         }
         return max;
-    }
-
-    // Геттеры
-
-    public Book[] getBooks() {
-        return books;
     }
 }
 
