@@ -11,32 +11,30 @@ public class CalculatorTest {
         Scanner scanner = new Scanner(System.in);
         String answer = YES;
         do {
-            boolean isException = true;
-            if (YES.equals(answer)) {
-                System.out.print("\nВведите математическое выражение: ");
-                String expression = scanner.nextLine();
-                try {
+            try {
+                if (YES.equals(answer)) {
+                    System.out.print("\nВведите математическое выражение: ");
+                    String expression = scanner.nextLine();
                     double result = Calculator.calculate(expression);
-                    printResult(Calculator.getA(), Calculator.getSign(), Calculator.getB(), result);
-                    isException = false;
+                    printResult(result);
                     System.out.print("\nХотите продолжить вычисления? [yes/no]: ");
-                } catch (NumberFormatException e) {
-                    System.out.println("Ошибка: неверный формат целого числа\n");
-                } catch (RuntimeException e) {
-                    System.out.println(e.getMessage());
+                    // answer = scanner.nextLine().toUpperCase();
+                } else {
+                    System.out.print("Введите корректный ответ [yes/no]: ");
+                    // answer = scanner.nextLine().toUpperCase();
                 }
-            } else {
-                System.out.print("Введите корректный ответ [yes/no]: ");
-            }
-            if (!isException || !YES.equals(answer)) {
                 answer = scanner.nextLine().toUpperCase();
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: неверный формат целого числа\n");
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
             }
         } while (!NO.equals(answer));
         System.out.println("Программа завершена");
     }
 
-    public static void printResult(int a, char sign, int b, double result) {
-        System.out.print(a + " " + sign + " " + b + " = ");
+    public static void printResult(double result) {
+        System.out.print(Calculator.getA() + " " + Calculator.getSign() + " " + Calculator.getB() + " = ");
         DecimalFormat df = new DecimalFormat("#.###");
         System.out.println(df.format(result));
     }

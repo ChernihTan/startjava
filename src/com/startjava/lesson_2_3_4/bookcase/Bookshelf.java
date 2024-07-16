@@ -29,8 +29,7 @@ public class Bookshelf {
     public int findShelfNumber(Book searchedBook) {
         for (int i = 0; i < countBooks; i++) {
             // s1.equals(s2)
-            if (books[i].equalsAuthor(searchedBook.getAuthor()) &&
-                    books[i].equalsTitle(searchedBook.getTitle())) {
+            if (books[i].equals(searchedBook)) {
                 return i;
             }
         }
