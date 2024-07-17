@@ -18,10 +18,8 @@ public class CalculatorTest {
                     double result = Calculator.calculate(expression);
                     printResult(result);
                     System.out.print("\nХотите продолжить вычисления? [yes/no]: ");
-                    // answer = scanner.nextLine().toUpperCase();
                 } else {
                     System.out.print("Введите корректный ответ [yes/no]: ");
-                    // answer = scanner.nextLine().toUpperCase();
                 }
                 answer = scanner.nextLine().toUpperCase();
             } catch (NumberFormatException e) {

@@ -7,24 +7,31 @@ public class Book {
     private final String title;
     private final int yearPublication;
 
-    public Book(String author, String title) {
-        this(author, title, 0);
+    // длина полки для отображения
+    private final int lengthShelf;
+
+    public Book(String title) {
+        this("", title, 0);
     }
 
     public Book(String author, String title, int yearPublication) {
         this.author = author;
         this.title = title;
         this.yearPublication = yearPublication;
-    }
 
-    public String getAuthor() {
-        return author;
+        // отображение начинается с |_  и заканчивается _|
+        this.lengthShelf = toString().length() + 4;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public int getLengthShelf() {
+        return lengthShelf;
+    }
+
+    @Override
     public String toString() {
         return author + ", " + title + ", " + yearPublication;
     }
@@ -34,11 +41,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getTitle(), book.getTitle());
+        return Objects.equals(getTitle(), book.getTitle());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAuthor(), getTitle());
+        return Objects.hash(getTitle());
     }
 }

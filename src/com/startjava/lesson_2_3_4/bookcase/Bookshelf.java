@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class Bookshelf {
     private static final int MAX_COUNT_BOOKS = 10;
     private final Book[] books = new Book[MAX_COUNT_BOOKS];
-
     private int countBooks;
 
     public Book[] getBooks() {
@@ -28,7 +27,6 @@ public class Bookshelf {
 
     public int findShelfNumber(Book searchedBook) {
         for (int i = 0; i < countBooks; i++) {
-            // s1.equals(s2)
             if (books[i].equals(searchedBook)) {
                 return i;
             }
@@ -48,23 +46,21 @@ public class Bookshelf {
     }
 
     // получение количество свободных полок в шкафу
-    public int countingEmptyShelves() {
+    public int countEmptyShelves() {
         return MAX_COUNT_BOOKS - countBooks;
     }
 
-    public void cleanBookShelf() {
+    public void cleanBookshelf() {
         // очистка, начиная с 0-го элемента всех занятых полок
         Arrays.fill(books, 0, countBooks, null);
         countBooks = 0;
     }
 
-    public int lengthShelf() {
+    public int countMaxLengthShelf() {
         int max = 0;
-        for (int i = 0; i < countBooks; i++) {
-            int length = books[i].getTitle().length() + books[i].getAuthor().length() + 4 + 4;
-            if (length > max) {
-                max = length;
-            }
+        // цикл только по занятым полкам
+        for (Book book : getBooks()) {
+            max = Math.max(book.getLengthShelf(), max);
         }
         return max;
     }
